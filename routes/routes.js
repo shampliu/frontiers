@@ -104,7 +104,7 @@ module.exports = function(app) {
 		// https://www.eventbriteapi.com/v3/users/me/?token=SESXYS4X3FJ5LHZRWGKQ
 		// get primary email
 		// db[email_addr]........you konw what to do
-	  res.sendFile(path.resolve('frontend/login.html'));
+	  res.sendFile(path.resolve('frontend/login_callback.html'));
 	})
 
 }

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 export class LoginCallback extends React.Component {
   render() {
-    handleLogin();
+    // handleLogin();
     return (
       <div className="container">
         <p>Hold on a moment... We're finalizing your login.</p>
@@ -22,7 +22,7 @@ export class LoginCallback extends React.Component {
     }
     localStorage.setItem('access_token', token);
     // get primary email from eventbrite, store that too
-    window.location = '/';
+    // window.location = '/';
   }
 }
 
