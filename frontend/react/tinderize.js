@@ -45,7 +45,8 @@ var cardsData = [
     }
 ];
 
-var Card = React.createClass({displayName: "Card",
+var Card = React.createClass({
+  displayName: "Card",
   getInitialState: function() {
     return {
       initialPosition: {
@@ -289,6 +290,14 @@ var Tinderable = React.createClass({displayName: "Tinderable",
     };
   },
 
+  handleDismiss: function(cardId) {
+    console.log('Fuck this one.')
+  },
+
+  handleSave: function(cardId) {
+    console.log('WE SAVED HIM!')
+  },
+
   removeCard: function(side, cardId) {
     setTimeout(function(){
       if (side === 'left') {
@@ -297,6 +306,12 @@ var Tinderable = React.createClass({displayName: "Tinderable",
         this.setState({alertRight: false});
       }
     }.bind(this), 3000);
+
+    if (side === 'left') {
+      this.handleDismiss(cardId);
+    } else if (side === 'right') {
+      this.handleSave(cardId);
+    }
 
     this.setState({
       cards: this.state.cards.filter(function(c) {
