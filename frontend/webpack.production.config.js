@@ -1,0 +1,25 @@
+var webpack = require('webpack');
+var path = require('path');
+var loaders = require('./webpack.loaders');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
+module.exports = {
+	entry: [
+		'./index.js' // Your appʼs entry point
+	],
+	output: {
+		path: path.join(__dirname, '../public/js'),
+		filename: 'bundle.js'
+	},
+	resolve: {
+		extensions: ['', '.js', '.jsx']
+	},
+	module: {
+		loaders: loaders
+	},
+	plugins: [
+		new CopyWebpackPlugin([
+			{from: './index.html'}
+		]),
+	]
+};

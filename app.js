@@ -5,18 +5,10 @@ var logger        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 
-var routes      = require('./routes/index');
-var users       = require('./routes/users');
-
 var app = express();
 
-var env = require('./env/' + process.env.NODE_ENV + '.js');
-
-var session   = require('express-session');
-var passport  = require('passport');
-
 // view engine setup
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, './frontend'));
 app.set('view engine', 'ejs');
 
 // app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
@@ -32,13 +24,7 @@ app.use(express.static(path.join(__dirname, './public')));
 //   app.use(compress());
 // }
 
-// passport setup
-app.use(session({ secret: env.sessionSecret })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
-app.use('/', routes);
-app.use('/users', users);
+var routes = require('./routes/routes.js')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,25 +37,25 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
+// if (app.get('env') === 'development') {
+//   app.use(function(err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//       message: err.message,
+//       error: err
+//     });
+//   });
+// }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
+// app.use(function(err, req, res, next) {
+//   res.status(err.status || 500);
+//   res.render('error', {
+//     message: err.message,
+//     error: {}
+//   });
+// });
 
 var port = process.env.PORT || 3000;
 app.listen(port);
