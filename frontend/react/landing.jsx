@@ -15,17 +15,9 @@ var radiuses = [{title: "1 mile", value: 1},
                 {title: "10 miles", value: 10},
                 {title: "25 miles", value: 25}];
 
-// componentDidMount() {
-//   let req = events.getEventsRequest('37.424041', '-122.070304', {});
-//   req.addEventListener("load", function () {
-//     alert(this.responseText);
-//   });
-//   req.send();
-// }
-
 var LandingPage = React.createClass({
   getInitialState: function() {
-    return {searchSat: false, locationSat: false};
+    return {searchSat: false, locationSat: false, categories: []};
   },
   enterGeo: function(geolocation) {
     if (geolocation.lat) {
@@ -48,9 +40,20 @@ var LandingPage = React.createClass({
   },
   componentDidMount: function() {
     console.log("sending off");
+    var readCategories = this.readCategories;
     events.getCategories(function() {
-      console.log(this.responseText);
+      readCategories(this.responseText);
     });
+  },
+  readCategories: function(response) {
+    var categories = [];
+    var catDicts = JSON.parse(response)["categories"];
+    if (catDicts) {
+      for (var c = 0; c < catDicts.length; c++) {
+        categories.push(catDicts[c]["short_name"]);
+      }
+    }
+    this.setState({categories: categories});
   },
   render: function() {
     return (
@@ -62,13 +65,19 @@ var LandingPage = React.createClass({
         </div>
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
         <CurrentLocationButton enterGeo={this.enterLocationGeo} satisfied={this.state.locationSat} />
+        <MultipleDropdown options={this.state.categories} />
         <InlineDropdown title="Show me events within " options={radiuses} defaultItem={radiuses[1]} />
-        <MultipleDropdown options={radiuses} defaultItem={radiuses[1]} />
         <SubmitButton satisfied={this.formSatisfied()} />
       </div>
     );
+  },
+  handleLogout: function() {
+    logout();
+    window.location = '/logout';
   }
 });
+
+
 
 var autocomplete;
 var LocationFinder = React.createClass({
@@ -155,7 +164,7 @@ var InlineDropdown = React.createClass({
     for (var o = 0; o < this.props.options.length; o++) {
       valueDict[this.props.options[o].title] = this.props.options[o].value;
     }
-    $('.ui.dropdown')
+    $('.ui.inlineDropdown')
       .dropdown('setting', 'onChange', function(e){console.log(valueDict[e]);});
   },
   render: function() {
@@ -170,7 +179,7 @@ var InlineDropdown = React.createClass({
       <div className="inlineDropdown">
         <span>
           {this.props.title}
-          <div className="ui inline dropdown">
+          <div className="ui inline dropdown inlineDropdown">
             <div className="text">
               <div className="item">
                 {this.props.defaultItem.title}
@@ -209,19 +218,29 @@ var MultipleDropdown = React.createClass({
   printIt: function(value) {
     console.log("yeah bro", value);
   },
+  componentDidMount: function() {
+    $('.ui.multiSelectDropdown')
+      .dropdown('setting', 'onChange', function(e){console.log(e);});
+  },
   render: function() {
     var printIt = this.printIt;
-    var selectItems = this.props.options.map(function(item) {
+    var menuItems = this.props.options.map(function(value) {
       // let boundClick = printIt.bind(this, item.value);
-      return <option key={item.value} value={item.value}>
-                {item.title}
-              </option>;
+      return <div className="item" key={value} data-value={value}>
+                {value}
+              </div>;
     });
     return (
-      <div className="MultipleDropdown">
-        <select className="ui fluid search dropdown" multiple="">
-          {selectItems}
-        </select>
+      <div className="multipleDropdown">
+        <div className="ui fluid multiple search selection dropdown multiSelectDropdown">
+            <i className="dropdown icon"></i>
+            <div className="default text">
+              Select Categories
+            </div>
+            <div className="menu">
+              {menuItems}
+            </div>
+          </div>
       </div>
     );
   }
