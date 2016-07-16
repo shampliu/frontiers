@@ -48,13 +48,12 @@ var Card = React.createClass({displayName: "Card",
   },
 
   setInitialPosition: function() {
-    var screen = document.getElementById('master-root'),
-    card = ReactDOM.findDOMNode(this),
-
-    initialPosition = {
-      x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
-      y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
-    };
+    var screen = document.getElementById('react-start'),
+        card = ReactDOM.findDOMNode(this),
+        initialPosition = {
+          x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
+          y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
+        };
 
     this.setState({
       initialPosition: initialPosition
@@ -122,13 +121,12 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
   },
 
   resetPosition: function() {
-    var screen = document.getElementById('master-root'),
-    card = ReactDOM.findDOMNode(this);
-
-    var initialPosition = {
-      x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
-      y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
-    };
+    var screen = document.getElementById('react-start'),
+        card = ReactDOM.findDOMNode(this),
+        initialPosition = {
+          x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
+          y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
+        };
 
     var initialState = this.getInitialState();
     this.setState(
@@ -152,9 +150,8 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
       });
     },
     panend: function(ev) {
-      var screen = document.getElementById('master-root'),
-      card = ReactDOM.findDOMNode(this);
-
+      var screen = document.getElementById('react-start'),
+          card = ReactDOM.findDOMNode(this);
       if (this.state.x < -50) {
         this.props.onOutScreenLeft(this.props.cardId);
       } else if ((this.state.x + (card.offsetWidth - 50)) > screen.offsetWidth) {
@@ -198,9 +195,8 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
     this.hammer.add(new Hammer.Pan({threshold: 0}));
 
     var events = [
-    ['panstart panend pancancel panmove', this.handlePan],
-    ['swipestart swipeend swipecancel swipemove',
-    this.handleSwipe]
+      ['panstart panend pancancel panmove', this.handlePan],
+      ['swipestart swipeend swipecancel swipemove', this.handleSwipe]
     ];
 
     events.forEach(function(data) {
