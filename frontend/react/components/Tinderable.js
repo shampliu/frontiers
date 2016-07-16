@@ -267,7 +267,7 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
     //     classes: classes})));
     return (
       <div className="draggableCard">
-        <Card 
+        <Card
           cardId={this.props.cardId}
           index={this.props.index}
           onOutScreenLeft={this.props.onOutScreenLeft}
@@ -293,6 +293,15 @@ var Tinderable = React.createClass({displayName: "Tinderable",
     };
   },
 
+  handleSave: function(eventId) {
+    let http = new XMLHttpRequest();
+    http.open('GET','/events/save/'+eventId+'',true);
+    http.addEventListener('load', function() {
+      console.log('saved!');
+    });
+    http.send();
+  },
+
   removeCard: function(side, cardId) {
     setTimeout(function(){
       if (side === 'left') {
@@ -301,6 +310,10 @@ var Tinderable = React.createClass({displayName: "Tinderable",
         this.setState({alertRight: false});
       }
     }.bind(this), 3000);
+
+    if (side === 'right') {
+      this.handleSave(cardId);
+    }
 
     this.setState({
       alertLeft: side === 'left',
@@ -332,7 +345,7 @@ var Tinderable = React.createClass({displayName: "Tinderable",
           </div>
       }
       else {
-        var theCard = 
+        var theCard =
           <div key={index}>
           <Card
             cardId={c.id}
