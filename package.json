@@ -1,5 +1,5 @@
 {
-  "name": "ideahacks",
+  "name": "frontiers",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -16,8 +16,9 @@
 
     "mongoose" : "4.4",
     "passport" : "~0.1.17",
-    "passport-local" : "~0.1.6",
     "bcrypt-nodejs" : "*",
-    "express-session": "~1.0.0"
+    "express-session": "~1.0.0",
+
+    "passport-facebook": "^2.0.0"
   }
 }
