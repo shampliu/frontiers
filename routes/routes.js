@@ -62,7 +62,12 @@ module.exports = function(app) {
 	var User = mongoose.model('User');
 
 	app.get('/', function(req, res, next) {
-	  res.render('index');
+		if (req.session.user) {
+			res.sendFile(path.resolve('frontend/landing.html'));
+		}
+	  else {
+	  	res.sendFile(path.resolve('frontend/login.html'));
+	  }
 
 	});
 
