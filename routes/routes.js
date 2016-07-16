@@ -67,9 +67,11 @@ module.exports = function(app) {
 	 }
 	);
 
-	app.post('/users/:email', function(req, res, next) {
+	app.get('/user/:email', function(req, res, next) {
 		var email = urlencode.decode(req.params.email);
 		User.findOne({ 'email' : email }, function(err, user) {
+			console.log('finding user');
+			console.log(user);
 			if (err) {
 				// return next(err);
 			}
@@ -87,6 +89,7 @@ module.exports = function(app) {
 				}
 			}
 		})
+		res.sendFile(path.resolve('frontend/login.html'));
 	})
 
 
@@ -103,12 +106,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/login_callback', function(req, res) {
-		var token = req.query.access_token;
-		// store token under email
-		// https://www.eventbriteapi.com/v3/users/me/?token=SESXYS4X3FJ5LHZRWGKQ
-		// get primary email
-		// db[email_addr]........you konw what to do
-	  res.sendFile(path.resolve('frontend/login.html'));
+	  res.sendFile(path.resolve('frontend/login_callback.html'));
 	})
 
 }
