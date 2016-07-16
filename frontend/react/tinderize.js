@@ -12,28 +12,36 @@ var cardsData = [
         text: '—— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— -',
         image: 'dolores-park.jpg',
         id: '1',
-        location: 'portland'
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
         title: 'My amazing journey',
         text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ——— ———— ',
-        image: 'portrait-2.jpg',
+        image: 'coachella.jpg',
         id: '2',
-        location: 'portland'
+        location: 'Near Los Angeles',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
         title: 'Three recipes without cocoa',
         text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ———',
-        image: 'portrait-3.jpg',
+        image: '',
         id: '3',
-        location: 'portland'
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
         title: 'Generiffaftitle',
         text: ' —— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— - ——— ',
-        image: 'portrait-4.jpg',
+        image: 'dolores-park.jpg',
         id: '4',
-        location: 'portland'
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     }
 ];
 
@@ -48,13 +56,12 @@ var Card = React.createClass({displayName: "Card",
   },
 
   setInitialPosition: function() {
-    var screen = document.getElementById('master-root'),
-    card = ReactDOM.findDOMNode(this),
-
-    initialPosition = {
-      x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
-      y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
-    };
+    var screen = document.getElementById('react-start'),
+        card = ReactDOM.findDOMNode(this),
+        initialPosition = {
+          x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
+          y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
+        };
 
     this.setState({
       initialPosition: initialPosition
@@ -83,23 +90,30 @@ var Card = React.createClass({displayName: "Card",
       msTransform: initialTranslate,
       WebkitTransform: initialTranslate,
       transform: initialTranslate,
-      zIndex: this.props.index,
-      backgroundImage: 'url("images/' + this.props.image + '")'
+      zIndex: this.props.index
     }, this.props.style);
 
+    var innerStyle = {
+      backgroundImage: 'url("images/' + this.props.image + '")',
+      zIndex: this.props.index
+    };
     var classes = addons.classSet(merge(
-    {
-      card: true
-    },
-    this.props.classes
-    ));
-
+                    {
+                      card: true
+                    },
+                    this.props.classes
+                  ));
+    this.title = this.props.title.length > 24 ? this.props.title.substring(0, 22) + "..." : this.props.title;
+    var startTime = new Date(this.props.startTime);
+    startTime = startTime.toDateString() + " " + this.props.startTime.substring(12);
     return (
-      React.createElement("div", {style: style, className: classes},
-        React.createElement("h1", null, this.props.title),
-        React.createElement("h1", null, this.props.location),
-        React.createElement("p", null, this.props.text)
-        )
+      React.createElement("div", {style:style, className: classes},
+        React.createElement("h1", {className: "title"}, this.title),
+        React.createElement("h3", {className: "location"}, startTime),
+        React.createElement("div", {style: innerStyle, className: "inner-image"}),
+        React.createElement("h3", {className: "location"}, this.props.location),
+        React.createElement("p", null, this.props.text),
+        React.createElement("a", {href: this.props.url, target: "_blank"}, "More information"))
       );
   }
 });
@@ -122,13 +136,12 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
   },
 
   resetPosition: function() {
-    var screen = document.getElementById('master-root'),
-    card = ReactDOM.findDOMNode(this);
-
-    var initialPosition = {
-      x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
-      y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
-    };
+    var screen = document.getElementById('react-start'),
+        card = ReactDOM.findDOMNode(this),
+        initialPosition = {
+          x: Math.round((screen.offsetWidth - card.offsetWidth) / 2),
+          y: Math.round((screen.offsetHeight - card.offsetHeight) / 2)
+        };
 
     var initialState = this.getInitialState();
     this.setState(
@@ -152,9 +165,8 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
       });
     },
     panend: function(ev) {
-      var screen = document.getElementById('master-root'),
-      card = ReactDOM.findDOMNode(this);
-
+      var screen = document.getElementById('react-start'),
+          card = ReactDOM.findDOMNode(this);
       if (this.state.x < -50) {
         this.props.onOutScreenLeft(this.props.cardId);
       } else if ((this.state.x + (card.offsetWidth - 50)) > screen.offsetWidth) {
@@ -198,9 +210,8 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
     this.hammer.add(new Hammer.Pan({threshold: 0}));
 
     var events = [
-    ['panstart panend pancancel panmove', this.handlePan],
-    ['swipestart swipeend swipecancel swipemove',
-    this.handleSwipe]
+      ['panstart panend pancancel panmove', this.handlePan],
+      ['swipestart swipeend swipecancel swipemove', this.handleSwipe]
     ];
 
     events.forEach(function(data) {
@@ -283,7 +294,9 @@ var Tinderable = React.createClass({displayName: "Tinderable",
         title: c.title,
         text: c.text,
         image: c.image,
-        location: c.location
+        location: c.location,
+        startTime: c.startTime,
+        url: c.url
       };
 
       var component = (index === (coll.length - 1)) ?
@@ -306,8 +319,8 @@ var Tinderable = React.createClass({displayName: "Tinderable",
 
     return (
       React.createElement("div", null,
-        React.createElement("div", {className: classesAlertLeft}, "left"),
-        React.createElement("div", {className: classesAlertRight}, "right"),
+        React.createElement("div", {className: classesAlertLeft}, "Pass"),
+        React.createElement("div", {className: classesAlertRight}, "Save"),
         React.createElement("div", {id: "cards"},
           cards
           )

@@ -62,7 +62,12 @@ module.exports = function(app) {
 	var User = mongoose.model('User');
 
 	app.get('/', function(req, res, next) {
-	  res.render('index');
+		if (req.session.user) {
+			res.sendFile(path.resolve('frontend/landing.html'));
+		}
+	  else {
+	  	res.sendFile(path.resolve('frontend/login.html'));
+	  }
 
 	});
 
@@ -117,12 +122,14 @@ module.exports = function(app) {
 		}
 	});
 
-	app.get('/user/events', function(req, res, next) {
+	app.get('/events', function(req, res, next) {
+		console.log('yes');
 		var user = req.session.user;
 		if (user) {
 			User.findOne({ email: user.email }, function(err, u) {
 				if (u) {
-					return u.events;
+					console.log(u.events);
+					res.json(u.events);
 				}
 			})
 		}

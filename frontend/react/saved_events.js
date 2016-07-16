@@ -24,6 +24,13 @@ export class SavedEvents extends React.Component {
   }
 
   componentWillMount() {
+    let http = new XMLHttpRequest();
+    http.open('GET', '/events', true);
+    http.withCredentials = true;
+    http.addEventListener('load', function() {
+      alert(this.responseText);
+    });
+    http.send();
   }
 }
 
