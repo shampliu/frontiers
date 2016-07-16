@@ -22,13 +22,6 @@ export class Login extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="event">
-                <div className="content">
-                  <div className="summary">
-                     <a>Explore new frontiers</a>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div className="extra content">

@@ -22,6 +22,9 @@ body{
 	background-size: cover;
 }
 
+.event .summary {
+	text-align: center !important;
+}
 
 @font-face {
     font-family: "titleFont";
