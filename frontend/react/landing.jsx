@@ -14,14 +14,6 @@ var radiuses = [{title: "1 mile", value: 1},
                 {title: "10 miles", value: 10},
                 {title: "25 miles", value: 25}];
 
-// componentDidMount() {
-//   let req = events.getEventsRequest('37.424041', '-122.070304', {});
-//   req.addEventListener("load", function () {
-//     alert(this.responseText);
-//   });
-//   req.send();
-// }
-
 var LandingPage = React.createClass({
   getInitialState: function() {
     return {searchSat: false, locationSat: false, categories: []};
@@ -77,8 +69,14 @@ var LandingPage = React.createClass({
         <SubmitButton satisfied={this.formSatisfied()} />
       </div>
     );
+  },
+  handleLogout: function() {
+    logout(); 
+    window.location = '/logout';
   }
 });
+
+
 
 var autocomplete;
 var LocationFinder = React.createClass({
