@@ -6,45 +6,6 @@ var React     = require('react'),
     merge     = require('merge');
 
 
-var cardsData = [
-    {
-        title: 'A wonderful day',
-        text: '—— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— -',
-        image: 'dolores-park.jpg',
-        id: '1',
-        location: 'portland',
-        startTime: '2016-09-06T10:00:00',
-        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
-    },
-    {
-        title: 'My amazing journey',
-        text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ——— ———— ',
-        image: 'coachella.jpg',
-        id: '2',
-        location: 'Near Los Angeles',
-        startTime: '2016-09-06T17:00:00',
-        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
-    },
-    {
-        title: 'Three recipes without cocoa',
-        text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ———',
-        image: '',
-        id: '3',
-        location: 'portland',
-        startTime: '2016-09-06T12:00:00',
-        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
-    },
-    {
-        title: 'Generiffaftitle',
-        text: ' —— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— - ——— ',
-        image: 'dolores-park.jpg',
-        id: '4',
-        location: 'portland',
-        startTime: '2016-09-06T17:00:00',
-        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
-    }
-];
-
 var Card = React.createClass({
   displayName: "Card",
   getInitialState: function() {
@@ -359,10 +320,5 @@ var Tinderable = React.createClass({displayName: "Tinderable",
       );
   }
 });
-
-// ReactDOM.render(
-//   <Tinderable initialCardsData={cardsData} />,
-//   document.getElementById('react-start')
-// );
 
 module.exports = Tinderable;
