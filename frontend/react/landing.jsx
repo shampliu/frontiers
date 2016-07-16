@@ -2,6 +2,7 @@
 // let user select options for events cards
 
 var cities = ["Los Angeles", "San Francisco", "Atlanta", "Singapore", "Quebec"];
+var logout = require('./utils/auth').logout
 
 
 var React     = require('react'),
@@ -15,11 +16,16 @@ export class LandingPage extends React.Component {
         <div className="ui three item menu">
           <a className="active item">Settings</a>
           <a className="item">Events</a>
-          <a className="item">Log Out</a>
+          <a className="item" onClick={this.handleLogout}>Log Out</a>
         </div>
         <LocationFinder />
       </div>
     );
+  }
+
+  handleLogout() {
+    logout();
+    window.location = "/logout";
   }
 
   // componentDidMount() {
