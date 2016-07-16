@@ -152,6 +152,10 @@ module.exports = function(app) {
 
 	app.get('/landing', function(req, res) {
 	  res.sendFile(path.resolve('frontend/landing.html'));
-	})
+	});
+
+	app.get('/saved-events', function(req, res) {
+	  res.sendFile(path.resolve('frontend/saved_events.html'));
+	});
 
 }
