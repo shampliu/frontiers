@@ -7,7 +7,7 @@ var eventbrite_login_uri = require('../config').EVENTBRITE_OAUTH_URI;
 export class Login extends React.Component {
   render() {
     return (
-      <div> 
+      <div>
         <div className="bg"></div>
         <div className="ui card inner">
           <div className="content">
@@ -35,21 +35,12 @@ export class Login extends React.Component {
             <button className="ui button blue login-eventbrite" onClick={this.handleLogin}>Login with Eventbrite</button>
           </div>
         </div>
-        
+
       </div>
 
 
-      
+
     );
-  }
-
-  componentWillMount() {
-    let email = localStorage.getItem('email');
-    let access_token = localStorage.getItem('access_token');
-
-    if (email !== '' && access_token !== '') {
-      window.location = '/';
-    }
   }
 
   handleLogin() {

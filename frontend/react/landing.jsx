@@ -1,12 +1,8 @@
 // Landing page
 // let user select options for events cards
 
-<<<<<<< HEAD
-=======
 var cities = ["Los Angeles", "San Francisco", "Atlanta", "Singapore", "Quebec"];
-var logout = require('./utils/auth').logout
-
->>>>>>> 14ecfb20230cb0c00c32954a763cf49f87a3f2a6
+var logout = require('./utils/auth').logout;
 
 var React     = require('react'),
     ReactDOM  = require('react-dom'),
@@ -228,7 +224,7 @@ var MultipleDropdown = React.createClass({
         </select>
       </div>
     );
-  }  
+  }
 });
 
 ReactDOM.render(<LandingPage />, document.querySelector("#react-start"));
