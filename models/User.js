@@ -2,7 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema; 
 
 var UserSchema = new Schema({
-	email: String
+	email: String,
+	fb: Object,
+	eb_events: Array,
+	fb_events: Array, 
+	settings: Object
 }, { 
 	minimize: false
 });

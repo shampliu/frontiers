@@ -27,8 +27,8 @@ module.exports = function(app) {
 	}
 
 	passport.use(new FacebookStrategy({
-	    clientID: 270860083277976,
-	    clientSecret: "574d36e6c5e45f6235e663c3819320dc",
+	    clientID: process.env.FB_ID,
+	    clientSecret: process.env.FB_SECRET,
 	    callbackURL: url,
 	    enableProof: false
 	  },
@@ -74,13 +74,14 @@ module.exports = function(app) {
 
 	app.get('/auth/facebook',
 	  passport.authenticate('facebook', { scope: ['user_likes', 'user_friends'] }), function(req, res){
+	  	console.log(res);
 
 		}
 	);
 
 	app.get('/auth/facebook/callback',
 	  passport.authenticate('facebook', { failureRedirect: '/login'}), function(req, res) { 
-		res.redirect('/index');
+		res.render('index');
 	 }
 	);
 
