@@ -136,7 +136,7 @@ var LandingPage = React.createClass({
     // else {
     //   card["startTime"] = "Soon";
     // }
-    card["startTime"] = "Coming Up";
+    card["startTime"] = event.end.local;
     if (event.url) {
       card["url"] = event.url;
     }
