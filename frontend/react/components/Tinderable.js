@@ -94,7 +94,7 @@ var Card = React.createClass({displayName: "Card",
     }, this.props.style);
 
     var innerStyle = {
-      backgroundImage: 'url("images/' + this.props.image + '")',
+      backgroundImage: 'url("images/' + (this.props.image || "http://placehold.it/300x300") + '")',
       zIndex: this.props.index
     };
     var classes = addons.classSet(merge(
