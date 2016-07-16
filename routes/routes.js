@@ -5,6 +5,7 @@ var session   = require('express-session');
 var passport  = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var path = require('path');
+var urlencode = require('urlencode');
 
 // passport setup
 
@@ -28,34 +29,13 @@ module.exports = function(app) {
 	}
 
 	passport.use(new FacebookStrategy({
-	    clientID: 270860083277976,
-	    clientSecret: "574d36e6c5e45f6235e663c3819320dc",
+	    clientID: process.env.FB_ID,
+	    clientSecret: process.env.FB_SECRET,
 	    callbackURL: url,
 	    enableProof: false
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	  	console.log(profile);
-	  	// User.findOne({ 'fb.id': profile.id }, function (err, user) {
-	  	// 	if (err) {
-	  	// 		return next(err);
-	  	// 	}
-	  	// 	else {
-	  	// 		if (! user) {
-	  	// 			var newUser = new User({
-	  	// 				fb : profile,
-	  	// 				accessToken : accessToken
-	  	// 			});
-
-	  	// 			newUser.save(function(err) {
-	  	// 				if (err) {
-	  	// 					console.log('ERROR SAVING NEW USER');
-	  	// 				}
-	  	// 			})
-
-	  	// 		}
-	  	// 	}
-	  	// })
-
 			process.nextTick(function (){
 				return done(null, profile);
 			});
@@ -75,15 +55,39 @@ module.exports = function(app) {
 
 	app.get('/auth/facebook',
 	  passport.authenticate('facebook', { scope: ['user_likes', 'user_friends'] }), function(req, res){
+	  	console.log(res);
 
 		}
 	);
 
 	app.get('/auth/facebook/callback',
 	  passport.authenticate('facebook', { failureRedirect: '/login'}), function(req, res) {
-		res.redirect('/index');
+		res.render('index');
 	 }
 	);
+
+	app.post('/users/:email', function(req, res, next) {
+		var email = urlencode.decode(req.params.email);
+		User.findOne({ 'email' : email }, function(err, user) {
+			if (err) {
+				// return next(err);
+			}
+
+			else {
+				if (! user) {
+					var new_user = new User({
+						email: email
+					})
+					new_user.save(function(err) {
+						if (err) {
+							console.log('Could not save new User with email', email);
+						}
+					})
+				}
+			}
+		})
+	})
+
 
 	app.get('/tinder', function(req, res) {
 	  res.sendFile(path.resolve('frontend/tinder.html'));

@@ -1,5 +1,5 @@
 module.exports = {
  	// local mongodb url
-    db : 'mongodb://localhost/enf',
+    db : 'mongodb://localhost/frontiers',
     sessionSecret : 'linkedinislife'
 }

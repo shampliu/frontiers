@@ -17,12 +17,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
 
-// // Use the 'NODE_ENV' variable to activate the 'morgan' logger or 'compress' middleware
-// if (process.env.NODE_ENV === 'development') {
-//   app.use(logger('dev'));
-// } else if (process.env.NODE_ENV === 'production') {
-//   app.use(compress());
-// }
+// Use the 'NODE_ENV' variable to activate the 'morgan' logger or 'compress' middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(logger('dev'));
+} else if (process.env.NODE_ENV === 'production') {
+  app.use(compress());
+}
 
 var routes = require('./routes/routes.js')(app);
 
