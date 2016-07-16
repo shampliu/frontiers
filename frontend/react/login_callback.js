@@ -22,8 +22,6 @@ export class LoginCallback extends React.Component {
 
     var params = "?token=" + token;
 
-    console.log('handling login');
-
     var user_url = "/user/"
 
 
@@ -51,7 +49,7 @@ export class LoginCallback extends React.Component {
     }
     localStorage.setItem('access_token', token);
     // get primary email from eventbrite, store that too
-    // window.location = '/';
+    window.location = '/landing';
   }
 }
 

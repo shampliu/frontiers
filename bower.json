@@ -1,0 +1,12 @@
+{
+  "name": "frontiers",
+  "description": "",
+  "main": "",
+  "authors": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "semantic": "^2.2.2"
+  }
+}
