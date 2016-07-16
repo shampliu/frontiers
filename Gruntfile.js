@@ -12,7 +12,7 @@ module.exports = function(grunt) {
   var webpack = require('webpack');
 
   // Directory where *.js and *.jsx files will be compiled and placed in ./public/build
-  var directory = 'react';
+  var directory = 'frontend/react';
 
   // vendors will be compiled to a file which can be shared between pages
   var entry = {vendors: []};
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         },
         output: {
           filename: '[name].min.js',
-          path: './public/build'
+          path: './public/js'
         },
         module: module
       },
