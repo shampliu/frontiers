@@ -61,6 +61,7 @@ var LandingPage = React.createClass({
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
         <CurrentLocationButton enterGeo={this.enterLocationGeo} satisfied={this.state.locationSat} />
         <InlineDropdown title="Show me events within " options={radiuses} defaultItem={radiuses[1]} />
+        <MultipleDropdown options={radiuses} defaultItem={radiuses[1]} />
         <SubmitButton satisfied={this.formSatisfied()} />
       </div>
     );
@@ -164,7 +165,7 @@ var InlineDropdown = React.createClass({
               </div>;
     });
     return (
-      <div className="radiusDropdown">
+      <div className="inlineDropdown">
         <span>
           {this.props.title}
           <div className="ui inline dropdown">
@@ -199,8 +200,29 @@ var SubmitButton = React.createClass({
   }
 });
 
-// var MultipleDropdown = React.createClass({
-  
-// });
+var MultipleDropdown = React.createClass({
+  getInitialState: function() {
+    return {"selected": []};
+  },
+  printIt: function(value) {
+    console.log("yeah bro", value);
+  },
+  render: function() {
+    var printIt = this.printIt;
+    var selectItems = this.props.options.map(function(item) {
+      // let boundClick = printIt.bind(this, item.value);
+      return <option key={item.value} value={item.value}>
+                {item.title}
+              </option>;
+    });
+    return (
+      <div className="MultipleDropdown">
+        <select className="ui fluid search dropdown" multiple="">
+          {selectItems}
+        </select>
+      </div>
+    );
+  }  
+});
 
 ReactDOM.render(<LandingPage />, document.querySelector("#react-start"));
