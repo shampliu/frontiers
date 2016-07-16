@@ -17,21 +17,21 @@ var cardsData = [
     {
         title: 'My amazing journey',
         text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ——— ———— ',
-        image: 'portrait-2.jpg',
+        image: 'coachella.jpg',
         id: '2',
-        location: 'portland'
+        location: 'Near Los Angeles'
     },
     {
         title: 'Three recipes without cocoa',
         text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ———',
-        image: 'portrait-3.jpg',
+        image: '',
         id: '3',
         location: 'portland'
     },
     {
         title: 'Generiffaftitle',
         text: ' —— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— - ——— ',
-        image: 'portrait-4.jpg',
+        image: 'dolores-park.jpg',
         id: '4',
         location: 'portland'
     }
@@ -82,10 +82,13 @@ var Card = React.createClass({displayName: "Card",
       msTransform: initialTranslate,
       WebkitTransform: initialTranslate,
       transform: initialTranslate,
-      zIndex: this.props.index,
-      backgroundImage: 'url("images/' + this.props.image + '")'
+      zIndex: this.props.index
     }, this.props.style);
 
+    var innerStyle = {
+      backgroundImage: 'url("images/' + this.props.image + '")',
+      zIndex: this.props.index
+    };
     var classes = addons.classSet(merge(
     {
       card: true
@@ -94,9 +97,10 @@ var Card = React.createClass({displayName: "Card",
     ));
 
     return (
-      React.createElement("div", {style: style, className: classes},
-        React.createElement("h1", null, this.props.title),
-        React.createElement("h1", null, this.props.location),
+      React.createElement("div", {style:style, className: classes},
+        React.createElement("h1", {className: "title"}, this.props.title),
+        React.createElement("h3", {className: "location"}, this.props.location),
+        React.createElement("div", {style: innerStyle, className: "inner-image"}),
         React.createElement("p", null, this.props.text)
         )
       );
@@ -302,8 +306,8 @@ var Tinderable = React.createClass({displayName: "Tinderable",
 
     return (
       React.createElement("div", null,
-        React.createElement("div", {className: classesAlertLeft}, "left"),
-        React.createElement("div", {className: classesAlertRight}, "right"),
+        React.createElement("div", {className: classesAlertLeft}, "Pass"),
+        React.createElement("div", {className: classesAlertRight}, "Save"),
         React.createElement("div", {id: "cards"},
           cards
           )

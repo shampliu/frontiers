@@ -39,13 +39,43 @@ li {
 
 .card {
     background-color: white;
-    background-size: cover;
     box-shadow: 0px 0px 5px black;
     position: absolute;
     height: 540px;
     width: 368px;
     margin: 0 auto;
     border-radius: 3px;
+}
+
+.title {
+    display: -webkit-box;
+    font-size: 2em;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 8px;
+    -webkit-margin-end: 0px;
+    font-weight: lighter;
+}
+
+.location {
+    display: -webkit-box;
+    font-size: 1em;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0.2em;
+    -webkit-margin-start: 8px;
+    -webkit-margin-end: 0px;
+    font-weight: lighter;
+}
+
+.inner-image {
+    position: relative;
+    background-color: white;
+    background-size: cover;
+    min-width: 368px;
+    height: 340px;
+    width: 368px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
 }
 
 .animate {
@@ -71,14 +101,14 @@ li {
 
 .alert-right {
     right: 0;
-    background: red;
+    background: green;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
 
 .alert-left {
     left: 0;
-    background: orange;
+    background: red;
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
 }
