@@ -1,4 +1,4 @@
-html {
+/*html {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -14,12 +14,7 @@ body {
     text-align: center;
     max-width: 800px;
 }
-
-@media (min-width: 801px) {
-    body {
-        border: 1px solid black;
-    }
-}
+*/
 
 img {
     width: 100%;
@@ -38,7 +33,7 @@ li {
     font-family: titleFont;
 }
 
-#react-start {
+#tinder-start {
     position: relative;
     height: 100vh;
     min-height: 600px;

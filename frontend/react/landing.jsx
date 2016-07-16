@@ -4,9 +4,10 @@
 var cities = ["Los Angeles", "San Francisco", "Atlanta", "Singapore", "Quebec"];
 var logout = require('./utils/auth').logout;
 
-var React     = require('react'),
-    ReactDOM  = require('react-dom'),
-    events    = require('./utils/events');
+var React      = require('react'),
+    ReactDOM   = require('react-dom'),
+    Tinderable = require('./components/Tinderable'),
+    events     = require('./utils/events');
 
 
 var radiuses = [{title: "1 mile", value: 1},
@@ -15,9 +16,52 @@ var radiuses = [{title: "1 mile", value: 1},
                 {title: "10 miles", value: 10},
                 {title: "25 miles", value: 25}];
 
+
+var cardsData = [
+    {
+        title: 'A wonderful day',
+        text: '—— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— -',
+        image: 'dolores-park.jpg',
+        id: '1',
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
+    },
+    {
+        title: 'My amazing journey',
+        text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ——— ———— ',
+        image: 'coachella.jpg',
+        id: '2',
+        location: 'Near Los Angeles',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
+    },
+    {
+        title: 'Three recipes without cocoa',
+        text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ———',
+        image: '',
+        id: '3',
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
+    },
+    {
+        title: 'Generiffaftitle',
+        text: ' —— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— - ——— ',
+        image: 'dolores-park.jpg',
+        id: '4',
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
+    }
+];
+
+let searchTab = "search";
+let tinderTab = "tinder";
+
 var LandingPage = React.createClass({
   getInitialState: function() {
-    return {searchSat: false, locationSat: false, categories: []};
+    return {searchSat: false, locationSat: false, categories: [], active: searchTab, cards: cardsData};
   },
   enterGeo: function(geolocation) {
     if (geolocation.lat) {
@@ -38,8 +82,16 @@ var LandingPage = React.createClass({
   formSatisfied: function() {
     return this.state.searchSat || this.state.locationSat;
   },
+  handleSubmit: function() {
+    console.log("submitting");
+    if (this.formSatisfied()) {
+      this.setState({active: tinderTab});
+    }
+  },
+  handleLogout: function() {
+    console.log("should log out");
+  },
   componentDidMount: function() {
-    console.log("sending off");
     var readCategories = this.readCategories;
     events.getCategories(function() {
       readCategories(this.responseText);
@@ -55,15 +107,33 @@ var LandingPage = React.createClass({
     }
     this.setState({categories: categories});
   },
+  handleRemoveCard: function(cardId) {
+    this.setState({
+      cards: this.state.cards.filter(function(c) {
+        return c.id !== cardId;
+      })
+    });
+  },
   render: function() {
-    return (
-      <div className="container">
-        <h4 className="ui dividing header" id="dividing-header">Search Events</h4>
+    if (this.state.active === searchTab) {
+      var tabContent =
+      <div>
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
         <CurrentLocationButton enterGeo={this.enterLocationGeo} satisfied={this.state.locationSat} />
         <MultipleDropdown options={this.state.categories} />
         <InlineDropdown title="Show me events within " options={radiuses} defaultItem={radiuses[1]} />
-        <SubmitButton satisfied={this.formSatisfied()} />
+        <SubmitButton satisfied={this.formSatisfied()} onSubmit={this.handleSubmit} />
+      </div>;
+    }
+    else if (this.state.active === tinderTab) {
+      var tabContent = <div id="tinder-start">
+                        <Tinderable cardData={this.state.cards} removeCard={this.handleRemoveCard} />
+                      </div>;
+    }
+    return (
+      <div className="container">
+        <h4 className="ui dividing header" id="dividing-header">Search Events</h4>
+        {tabContent}
       </div>
     );
   },
@@ -201,7 +271,7 @@ var SubmitButton = React.createClass({
     var buttonClassName = this.props.satisfied ? "ui button formButton satisfiedButton": "ui button formButton unsatisfiedForm";
     return (
       <div className="currentLocationButton">
-        <button className={buttonClassName} onClick={this.props.submit} disabled={!this.props.satisfied}>Explore Events</button>
+        <button className={buttonClassName} onClick={this.props.onSubmit} disabled={!this.props.satisfied}>Explore Events</button>
       </div>
     );
   }
@@ -255,11 +325,11 @@ var Navbar = React.createClass({
         <div className="item">
           <img src="/img/logo.png"></img>
         </div>
-        <a className="item" href="/">Home</a>
-        <a className="active item" href="/landing">Search Events</a>
-        <a className="item" href="/saved-events">Saved Events</a>
+        <a className="item" href="/"><i className="home icon" />Home</a>
+        <a className="active item" href="/landing"><i className="search icon"/>Search Events</a>
+        <a className="item" href="/saved-events"><i className="marker icon" />Saved Events</a>
         <div className="right menu">
-          <a className="ui item" onClick={this.handleLogout}>Logout</a>
+          <a className="ui item" onClick={this.handleLogout}><i className="sign in icon"/>Logout</a>
         </div>
       </div>
     )
