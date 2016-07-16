@@ -9,7 +9,7 @@ body {
   background-attachment: fixed;
   background-position: bottom;
   background-size: 70em;
-  min-height: 720px;
+  min-height: 1000px;
 }
 
 #react-start {
