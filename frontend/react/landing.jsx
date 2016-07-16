@@ -119,7 +119,9 @@ var LandingPage = React.createClass({
       </div>;
     }
     else if (this.state.active === tinderTab) {
-      var tabContent = <Tinderable cardData={cardsData} />;
+      var tabContent = <div id="tinder-start">
+                        <Tinderable cardData={cardsData} />
+                      </div>;
     }
     return (
       <div className="container">
