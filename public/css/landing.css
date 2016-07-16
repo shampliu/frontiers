@@ -1,6 +1,7 @@
 /** CSS for Landing Page **/
 body {
   background-color: #E6EBE0;
+  overflow: hidden;
 }
 
 .background-image {
