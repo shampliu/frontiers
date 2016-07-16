@@ -25,6 +25,9 @@ var LandingPage = React.createClass({
     this.setState({searchSat: false, locationSat: true})
     this.enterGeo(geolocation);
   },
+  formSatisfied: function() {
+    return this.state.searchSat || this.state.locationSat;
+  },
   render: function() {
     return (
       <div className="container">
@@ -35,6 +38,7 @@ var LandingPage = React.createClass({
         </div>
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
         <CurrentLocationButton enterGeo={this.enterLocationGeo} satisfied={this.state.locationSat} />
+        <SubmitButton satisfied={this.formSatisfied()} />
       </div>
     );
   }
@@ -72,8 +76,16 @@ var LocationFinder = React.createClass({
 });
 
 var CurrentLocationButton = React.createClass({
+  getInitialState: function() {
+    return {searching: false};
+  },
+  setSearching: function(searching) {
+    this.setState({"searching": searching});
+  },
   getLocation: function() {
     if (navigator.geolocation) {
+      this.setState({searching: true});
+      var setSearching = this.setSearching;
       var enterGeo = this.props.enterGeo;
       navigator.geolocation.getCurrentPosition(function(position) {
         var geolocation = {
@@ -81,14 +93,30 @@ var CurrentLocationButton = React.createClass({
           lng: position.coords.longitude
         };
         enterGeo(geolocation);
+        setSearching(false);
+      }, function(error) {
+        console.log(error);
+        setSearching(false);
       });
     }
   },
   render: function() {
-    var buttonClassName = this.props.satisfied ? "ui button locationButton satisfiedButton": "ui button locationButton";
+    var buttonTitle = this.state.searching ? "Locating..." : (this.props.satisfied ? "Located" : "Current Location");
+    var buttonClassName = this.props.satisfied ? "ui button formButton satisfiedButton": "ui button formButton";
+    return (
+      <div className="currentLocationButton loading">
+        <button className={buttonClassName} onClick={this.getLocation} disabled={this.props.satisfied}>{buttonTitle}</button>
+      </div>
+    );
+  }
+});
+
+var SubmitButton = React.createClass({
+  render: function() {
+    var buttonClassName = this.props.satisfied ? "ui button formButton satisfiedButton": "ui button formButton unsatisfiedForm";
     return (
       <div className="currentLocationButton">
-        <button className={buttonClassName} onClick={this.getLocation}>Current Location</button>
+        <button className={buttonClassName} onClick={this.props.submit} disabled={!this.props.satisfied}>Explore Events</button>
       </div>
     );
   }

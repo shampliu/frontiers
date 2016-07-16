@@ -4,9 +4,9 @@
   width: 300px;
 }
 
-.ui.button.locationButton {
+.ui.button.formButton {
   width: 300px;
-  margin: 15px;
+  margin: 15px 15px 5px 15px;
 }
 
 .satisfied {
@@ -15,4 +15,12 @@
 
 .ui.button.satisfiedButton {
   background-color: #c3d897;
+}
+
+.ui.button.unsatisfiedForm {
+  background-color: #ffa77f;
+}
+
+.ui.button.satisfiedForm {
+  background-color: #91dcfc;
 }
