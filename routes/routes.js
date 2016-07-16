@@ -19,7 +19,7 @@ module.exports = function(app) {
 	  done(null, obj);
 	});
 
-	var url; 
+	var url;
 	if (process.env.NODE_ENV === 'development') {
 		url = "http://localhost:3000/auth/facebook/callback";
 	}
@@ -35,7 +35,6 @@ module.exports = function(app) {
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	  	console.log(profile);
-		
 			process.nextTick(function (){
 				return done(null, profile);
 			});
@@ -88,5 +87,10 @@ module.exports = function(app) {
 		})
 	}) 
 
+
+	app.get('/tinder', function(req, res) {
+	  var path = require('path');
+	  res.sendFile(path.resolve('frontend/tinder.html'));
+	});
 
 }
