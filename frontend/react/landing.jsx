@@ -7,7 +7,8 @@ var logout = require('./utils/auth').logout;
 var React      = require('react'),
     ReactDOM   = require('react-dom'),
     Tinderable = require('./components/Tinderable'),
-    events     = require('./utils/events');
+    events     = require('./utils/events'),
+    moment     = require('moment');
 
 
 var radiuses = [{title: "1 mile", value: 1},
@@ -61,14 +62,18 @@ let tinderTab = "tinder";
 
 var LandingPage = React.createClass({
   getInitialState: function() {
-    return {searchSat: false, locationSat: false, categories: [], active: searchTab, cards: cardsData};
+    return {searchSat: false, locationSat: false, possibleCategories: [], categories: [],
+      radius: 3, active: searchTab, cards: [],
+      lat: 0, lng: 0};
   },
   enterGeo: function(geolocation) {
     if (geolocation.lat) {
       console.log("lat: ", geolocation.lat);
+      this.setState({lat: geolocation.lat});
     }
     if (geolocation.lng) {
       console.log("lng: ", geolocation.lng);
+      this.setState({lng: geolocation.lng});
     }
   },
   enterSearchGeo: function(geolocation) {
@@ -79,18 +84,63 @@ var LandingPage = React.createClass({
     this.setState({searchSat: false, locationSat: true})
     this.enterGeo(geolocation);
   },
+  enterRadius: function(radius) {
+    console.log("got radius", radius);
+    this.setState({radius: radius});
+  },
+  enterCategories: function(categories) {
+    console.log("got categories", categories);
+    this.setState({categories: categories});
+  },
   formSatisfied: function() {
     return this.state.searchSat || this.state.locationSat;
   },
+  activateTinder: function(cards) {
+    console.log("activating");
+    this.setState({active: tinderTab, cards: cards});
+  },
+  convertEvent: function(event) {
+    var card = {};
+    card["title"] = event.name.text;
+    card["text"] = event.description.text;
+    if (event.logo != null) {
+      card["image"] = event.logo.url;
+      console.log('IMAGE URL IS' + card["image"])
+    }
+    else {
+      card["image"] = "http://placehold.it/300x300"
+    }
+    card["id"] = event.id;
+    card["location"] = event.start.timezone;
+    card["startTime"] = moment(event.start.local, 'YYYY-MM-DD[T]hh:mm:ss').fromNow();
+    card["url"] = event.url;
+    return card;
+  },
   handleSubmit: function() {
-    console.log("submitting");
     if (this.formSatisfied()) {
-      this.setState({active: tinderTab});
+      var categoriesFilter = events.genCategoryFilter(this.state.categories)
+      var radiusFilter = this.state.radius + "mi";
+      var filters = {radius: radiusFilter, categories: categoriesFilter};
+      var activateTab = this.activateTinder;
+      var convert = this.convertEvent;
+      events.getEvents(this.state.lat, this.state.lng, filters, function() {
+        // console.log("submitted");
+        let events = JSON.parse(this.responseText).events;
+        console.log('events is ')
+        console.log(events)
+        var cards = [];
+        for (var e = 0; e < 25; e++) {
+          console.log(convert(events[e]))
+          cards.push(convert(events[e]));
+        }
+        console.log(cards);
+        activateTab(cards);
+      });
     }
   },
-  handleLogout: function() {
-    console.log("should log out");
-  },
+  // handleLogout: function() {
+  //   console.log("should log out");
+  // },
   componentDidMount: function() {
     var readCategories = this.readCategories;
     events.getCategories(function() {
@@ -105,7 +155,7 @@ var LandingPage = React.createClass({
         categories.push(catDicts[c]["short_name"]);
       }
     }
-    this.setState({categories: categories});
+    this.setState({possibleCategories: categories});
   },
   handleRemoveCard: function(cardId) {
     this.setState({
@@ -120,8 +170,8 @@ var LandingPage = React.createClass({
       <div>
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
         <CurrentLocationButton enterGeo={this.enterLocationGeo} satisfied={this.state.locationSat} />
-        <MultipleDropdown options={this.state.categories} />
-        <InlineDropdown title="Show me events within " options={radiuses} defaultItem={radiuses[1]} />
+        <MultipleDropdown options={this.state.possibleCategories} onSubmit={this.enterCategories} />
+        <InlineDropdown title="Show me events within " options={radiuses} defaultItem={radiuses[1]} onSubmit={this.enterRadius} />
         <SubmitButton satisfied={this.formSatisfied()} onSubmit={this.handleSubmit} />
       </div>;
     }
@@ -137,10 +187,10 @@ var LandingPage = React.createClass({
       </div>
     );
   },
-  handleLogout: function() {
-    logout();
-    window.location = '/logout';
-  }
+  // handleLogout: function() {
+  //   logout();
+  //   window.location = '/logout';
+  // }
 });
 
 
@@ -222,21 +272,17 @@ var CurrentLocationButton = React.createClass({
 @prop defaultItem: first item to display: {title: "", value: int}
 */
 var InlineDropdown = React.createClass({
-  printIt: function(value) {
-    console.log("yeah bro", value);
-  },
   componentDidMount: function() {
     var valueDict = {};
     for (var o = 0; o < this.props.options.length; o++) {
       valueDict[this.props.options[o].title] = this.props.options[o].value;
     }
+    var onSubmit = this.props.onSubmit;
     $('.ui.inlineDropdown')
-      .dropdown('setting', 'onChange', function(e){console.log(valueDict[e]);});
+      .dropdown('setting', 'onChange', function(e){onSubmit(valueDict[e]);});
   },
   render: function() {
-    var printIt = this.printIt;
     var menuItems = this.props.options.map(function(item) {
-      // let boundClick = printIt.bind(this, item.value);
       return <div className="item" key={item.value}>
                 {item.title}
               </div>;
@@ -281,17 +327,16 @@ var MultipleDropdown = React.createClass({
   getInitialState: function() {
     return {"selected": []};
   },
-  printIt: function(value) {
-    console.log("yeah bro", value);
+  submitIt: function(value) {
+    this.props.onSubmit(value);
   },
   componentDidMount: function() {
+    var submitIt = this.submitIt;
     $('.ui.multiSelectDropdown')
-      .dropdown('setting', 'onChange', function(e){console.log(e);});
+      .dropdown('setting', 'onChange', function(e){submitIt(e)});
   },
   render: function() {
-    var printIt = this.printIt;
     var menuItems = this.props.options.map(function(value) {
-      // let boundClick = printIt.bind(this, item.value);
       return <div className="item" key={value} data-value={value}>
                 {value}
               </div>;
