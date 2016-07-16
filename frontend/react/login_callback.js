@@ -45,9 +45,9 @@ export class LoginCallback extends React.Component {
 
     var token = '';
     if (hash !== "") {
-      // try {
-      //   token = hash.substr(hash.indexOf('access_token=')+'access_token='.length);
-      // } catch {}
+      try {
+        token = hash.substr(hash.indexOf('access_token=')+'access_token='.length);
+      } catch(e) {}
     }
     localStorage.setItem('access_token', token);
     // get primary email from eventbrite, store that too
