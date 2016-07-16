@@ -58,6 +58,7 @@ var LandingPage = React.createClass({
   render: function() {
     return (
       <div className="container">
+        <h4 className="ui dividing header" id="dividing-header">Search Events</h4>
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
         <CurrentLocationButton enterGeo={this.enterLocationGeo} satisfied={this.state.locationSat} />
         <MultipleDropdown options={this.state.categories} />
@@ -251,7 +252,7 @@ var Navbar = React.createClass({
   render: function() {
     return (
       <div className="ui secondary menu">
-        <div class="item">
+        <div className="item">
           <img src="/img/logo.png"></img>
         </div>
         <a className="item" href="/">Home</a>
