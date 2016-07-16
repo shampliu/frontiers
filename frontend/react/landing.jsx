@@ -6,6 +6,7 @@ var cities = ["Los Angeles", "San Francisco", "Atlanta", "Singapore", "Quebec"];
 
 var React     = require('react'),
     ReactDOM  = require('react-dom');
+    // events    = require('./utils/events');
 
 export class LandingPage extends React.Component {
   render() {
@@ -20,6 +21,14 @@ export class LandingPage extends React.Component {
       </div>
     );
   }
+
+  // componentDidMount() {
+  //   let req = events.getEventsRequest('37.424041', '-122.070304', {});
+  //   req.addEventListener("load", function () {
+  //     alert(this.responseText);
+  //   });
+  //   req.send();
+  // }
 }
 
 var autocomplete;
