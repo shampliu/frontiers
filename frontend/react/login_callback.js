@@ -22,8 +22,6 @@ export class LoginCallback extends React.Component {
 
     var params = "?token=" + token;
 
-    console.log('handling login');
-
     var user_url = "/user/"
 
 
@@ -34,11 +32,16 @@ export class LoginCallback extends React.Component {
           var data = JSON.parse(http.responseText);
           var email = data["emails"].map(function(e) { if (e.primary) { return e.email }})
 
+          localStorage.setItem('email', email);
+          localStorage.setItem('access_token', token);
+
           http2.open("GET", user_url + email[0], true);
           http2.onreadystatechange = function() {
 
           }
           http2.send(null);
+
+          window.location = '/landing';
         }
     }
     http.send(null);
@@ -49,9 +52,8 @@ export class LoginCallback extends React.Component {
         token = hash.substr(hash.indexOf('access_token=')+'access_token='.length);
       } catch(e) {}
     }
-    localStorage.setItem('access_token', token);
     // get primary email from eventbrite, store that too
-    // window.location = '/';
+    window.location = '/landing';
   }
 }
 
