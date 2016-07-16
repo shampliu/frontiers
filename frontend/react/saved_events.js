@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 var getEvent = require('./utils/events').getEvent;
+import moment from 'moment';
 
 export class SavedEvents extends React.Component {
 
@@ -12,22 +13,6 @@ export class SavedEvents extends React.Component {
   }
 
   render() {
-    // return (
-    //   <div className="container">
-    //     <h1 class="logo">Your Frontiers</h1>
-    //     <ul>
-    //       {this.state.events.map((e) =>
-    //         <li id={e.id} className="saved-event">
-    //           <img src={e.logo.url} ref="logo"></img>
-    //           <span dangerouslySetInnerHTML={{__html:e.name.html}}></span>
-    //           {/*JSON.stringify(e)*/}
-    //           <a href={e.url}>Event Link</a>
-    //         </li>
-    //       )}
-    //     </ul>
-    //   </div>
-    // );
-
     return (
       <div className="container">
         <h1 className="logo">Your Saved Frontiers</h1>
@@ -38,21 +23,17 @@ export class SavedEvents extends React.Component {
                 <img src={e.logo.url} />
               </div>
               <div className="content">
-                <div className="header" dangerouslySetInnerHTML={{__html:e.name.html}}></div>
+                <a className="header" dangerouslySetInnerHTML={{__html:e.name.html}} href={e.url}></a>
                 <div className="meta">
-                  <a>Friends</a>
+                  <a>Event is <b>{e.status}</b></a>
                 </div>
                 <div className="description">
                   {e.description.text.substr(0,250)} ...
                 </div>
               </div>
               <div className="extra content">
-                <span className="right floated">
-                  Joined in 2013
-                </span>
                 <span>
-                  <i class="user icon"></i>
-                  75 Friends
+                  <b>Starts:</b> {moment(e.start.local,'YYYY-MM-DD[T]hh:mm:ss').fromNow()}
                 </span>
               </div>
             </div>

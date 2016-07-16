@@ -96,6 +96,11 @@ export function getEvent(id, load_callback) {
   http.send();
 }
 
+export function getVenue(id, load_callback) {
+  let http = generate_request('GET', 'https://www.eventbriteapi.com/v3/venues/' + id + '/', load_callback);
+  http.send();
+}
+
 export function getCategories(load_callback) {
   let http = generate_request('GET', 'https://www.eventbriteapi.com/v3/categories/', load_callback);
   http.send();
