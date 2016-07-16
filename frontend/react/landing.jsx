@@ -61,7 +61,7 @@ let tinderTab = "tinder";
 
 var LandingPage = React.createClass({
   getInitialState: function() {
-    return {searchSat: false, locationSat: false, categories: [], active: searchTab};
+    return {searchSat: false, locationSat: false, categories: [], active: searchTab, cards: cardsData};
   },
   enterGeo: function(geolocation) {
     if (geolocation.lat) {
@@ -107,6 +107,13 @@ var LandingPage = React.createClass({
     }
     this.setState({categories: categories});
   },
+  handleRemoveCard: function(cardId) {
+    this.setState({
+      cards: this.state.cards.filter(function(c) {
+        return c.id !== cardId;
+      })
+    });
+  },
   render: function() {
     if (this.state.active === searchTab) {
       var tabContent =
@@ -120,7 +127,7 @@ var LandingPage = React.createClass({
     }
     else if (this.state.active === tinderTab) {
       var tabContent = <div id="tinder-start">
-                        <Tinderable cardData={cardsData} />
+                        <Tinderable cardData={this.state.cards} removeCard={this.handleRemoveCard} />
                       </div>;
     }
     return (

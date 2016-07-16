@@ -306,6 +306,7 @@ var Tinderable = React.createClass({displayName: "Tinderable",
       alertLeft: side === 'left',
       alertRight: side === 'right'
     });
+    this.props.removeCard(cardId);
   },
 
   render: function() {
