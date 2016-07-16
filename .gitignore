@@ -34,6 +34,7 @@ npm-debug.log
 
 # Bower Components
 public/bower_components
+public/js
 
 # DS_Store
 .DS_Store
