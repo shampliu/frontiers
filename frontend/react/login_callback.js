@@ -5,11 +5,7 @@ import ReactDOM from 'react-dom';
 export class LoginCallback extends React.Component {
   render() {
     // handleLogin();
-    return (
-      <div className="container">
-        <p>Hold on a moment... We're finalizing your login.</p>
-      </div>
-    );
+    return (<div></div>);
   }
 
   componentDidMount() {

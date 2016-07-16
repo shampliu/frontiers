@@ -1,6 +1,16 @@
 /** CSS for Landing Page **/
 body {
-  background: #E6EBE0;
+  background-color: #E6EBE0;
+  overflow: hidden;
+}
+
+.background-image {
+  background: url("../img/dropbox.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom;
+  background-size: 70em;
+  min-height: 10000px;
 }
 
 #react-start {
