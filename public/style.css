@@ -1,0 +1,116 @@
+html {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    font-family: sans-serif;
+    text-align: center;
+    max-width: 800px;
+}
+
+@media (min-width: 801px) {
+    body {
+        border: 1px solid black;
+    }
+}
+
+img {
+    width: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+#react-start {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    max-height: 900px;
+    overflow: hidden;
+}
+
+.card {
+    background-color: white;
+    box-shadow: 0px 0px 5px black;
+    position: absolute;
+    height: 540px;
+    width: 368px;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+.title {
+    display: -webkit-box;
+    font-size: 2em;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 8px;
+    -webkit-margin-end: 0px;
+    font-weight: lighter;
+    width: 355px;
+}
+
+.location {
+    display: -webkit-box;
+    font-size: 1em;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0.2em;
+    -webkit-margin-start: 8px;
+    -webkit-margin-end: 0px;
+    width: 355px;
+    font-weight: lighter;
+}
+
+.inner-image {
+    position: relative;
+    background-color: white;
+    background-size: cover;
+    min-width: 368px;
+    height: 240px;
+    width: 368px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+.animate {
+    transition: transform .3s;
+}
+
+.alert {
+    width: 45%;
+    height: 10%;
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity .5s;
+    color: white;
+    vertical-align: middle;
+    line-height: 3rem;
+}
+
+.alert-visible {
+    opacity: 1;
+}
+
+.alert-right {
+    right: 0;
+    background: green;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.alert-left {
+    left: 0;
+    background: red;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}

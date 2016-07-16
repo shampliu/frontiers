@@ -122,12 +122,14 @@ module.exports = function(app) {
 		}
 	});
 
-	app.get('/user/events', function(req, res, next) {
+	app.get('/events', function(req, res, next) {
+		console.log('yes');
 		var user = req.session.user;
 		if (user) {
 			User.findOne({ email: user.email }, function(err, u) {
 				if (u) {
-					return u.events;
+					console.log(u.events);
+					res.json(u.events);
 				}
 			})
 		}
