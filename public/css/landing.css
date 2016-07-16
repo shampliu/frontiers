@@ -3,3 +3,16 @@
 #autocomplete {
   width: 300px;
 }
+
+.ui.button.locationButton {
+  width: 300px;
+  margin: 15px;
+}
+
+.satisfied {
+  color: green;
+}
+
+.ui.button.satisfiedButton {
+  background-color: #c3d897;
+}
