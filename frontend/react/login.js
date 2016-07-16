@@ -7,10 +7,39 @@ var eventbrite_login_uri = require('../config').EVENTBRITE_OAUTH_URI;
 export class Login extends React.Component {
   render() {
     return (
-      <div className="container">
-        <h1 class="logo">Frontiers</h1>
-        <button className="login-eventbrite" onClick={this.handleLogin}>Login with EventBrite</button>
+      <div> 
+        <div className="bg"></div>
+        <div className="ui card inner">
+          <div className="content">
+            <div className="header"><h2>Frontiers.</h2></div>
+          </div>
+          <div className="content">
+            <div className="ui small feed">
+              <div className="event">
+                <div className="content">
+                  <div className="summary">
+                     <a>Discover events around you.</a>
+                  </div>
+                </div>
+              </div>
+              <div className="event">
+                <div className="content">
+                  <div className="summary">
+                     <a>Explore new frontiers</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="extra content">
+            <button className="ui button blue login-eventbrite" onClick={this.handleLogin}>Login with Eventbrite</button>
+          </div>
+        </div>
+        
       </div>
+
+
+      
     );
   }
 

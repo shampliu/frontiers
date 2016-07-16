@@ -6,12 +6,24 @@ var session   = require('express-session');
 var passport  = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var path = require('path');
-var urlencode = require('urlencode');
+const MongoStore = require('connect-mongo')(session);
+var store = new MongoStore({ url: 'mongodb://localhost/frontiers' });
 
 // passport setup
 
 module.exports = function(app) {
-	app.use(session({ secret: env.sessionSecret })); // session secret
+	app.use(
+	  session({ 
+	  	cookie: {
+		    path    : '/',
+		    httpOnly: false,
+		    maxAge  : 24*60*60*1000
+		  }, 
+		  store:  store,
+		  secret: env.sessionSecret
+		})
+	); // session secret
+
 
 	passport.serializeUser(function(user, done) {
 	  done(null, user);
@@ -55,7 +67,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/auth/facebook',
-	  passport.authenticate('facebook', { scope: ['user_likes', 'user_friends'] }), function(req, res){
+	  passport.authenticate('facebook', { scope: ['user_friends'] }), function(req, res){
 	  	console.log(res);
 
 		}
@@ -68,10 +80,8 @@ module.exports = function(app) {
 	);
 
 	app.get('/user/:email', function(req, res, next) {
-		var email = urlencode.decode(req.params.email);
+		var email = req.params.email;
 		User.findOne({ 'email' : email }, function(err, user) {
-			console.log('finding user');
-			console.log(user);
 			if (err) {
 				// return next(err);
 			}
@@ -87,10 +97,36 @@ module.exports = function(app) {
 						}
 					})
 				}
+				req.session.user = user || new_user;
 			}
+			res.sendFile(path.resolve('frontend/login.html'));
 		})
-		res.sendFile(path.resolve('frontend/login.html'));
+		
 	})
+
+	app.get('/user/save/:event', function(req, res, next) {
+		var user = req.session.user;
+		if (user) {
+			User.findOne({ email: user.email }, function(err, u) {
+				if (u) {
+					var event_id = req.params.event;
+					u.events.push(event_id);
+					u.save();
+				}
+			})
+		}
+	});
+
+	app.get('/user/events', function(req, res, next) {
+		var user = req.session.user;
+		if (user) {
+			User.findOne({ email: user.email }, function(err, u) {
+				if (u) {
+					return u.events;
+				}
+			})
+		}
+	});
 
 
 	app.get('/tinder', function(req, res) {

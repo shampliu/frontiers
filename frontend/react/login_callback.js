@@ -22,9 +22,7 @@ export class LoginCallback extends React.Component {
 
     var params = "?token=" + token;
 
-    console.log('handling login');
-
-    var user_url = "/user/";
+    var user_url = "/user/"
 
 
     http.open("POST", url+params, true);
@@ -55,7 +53,7 @@ export class LoginCallback extends React.Component {
       } catch(e) {}
     }
     // get primary email from eventbrite, store that too
-    // window.location = '/';
+    window.location = '/landing';
   }
 }
 
