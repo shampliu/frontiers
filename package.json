@@ -30,6 +30,7 @@
     "react": "^0.14.6",
     "react-addons": "^0.9.1-deprecated",
     "react-dom": "^0.14.8",
+    "semantic-ui": "^2.2.2",
     "serve-favicon": "~2.3.0",
     "urlencode": "^1.1.0",
     "webpack": "^1.13.1",
