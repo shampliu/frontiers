@@ -11,7 +11,6 @@ body{
 }
 
 .bg {
-	margin: 20px;
 	position: absolute;
 	z-index: 1;
 	top: 0;
@@ -21,6 +20,17 @@ body{
 
 	background: url(https://images.unsplash.com/photo-1437326516294-01d0da392e11?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=5fd871029d3b4011e04f09d533fea68e);
 	background-size: cover;
+}
+
+
+@font-face {
+    font-family: "titleFont";
+    src: url("../fonts/adamcg_pro.otf");
+}
+
+.open-title {
+    font-family: "titleFont";
+    font-size: 2.7em;
 }
 
 .inner {
@@ -34,21 +44,17 @@ body{
 	height: 200px;
 	padding: 20px;
 	top: 200px !important;
-	
-	background-color: whitesmoke;
 
-
-
-
+	background-color: #F44336;
 }
 
 .inner a {
-	color: black; 
+	color: black;
 	text-decoration: none;
 }
 
 
 
-.inner h2 {
-	margin-top: 20px;
+.header h2 {
+	margin-top: 10px;
 }

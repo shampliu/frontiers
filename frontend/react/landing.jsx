@@ -132,11 +132,7 @@ var LandingPage = React.createClass({
     }
     return (
       <div className="container">
-        <div className="ui three item menu">
-          <a className={(this.state.active === searchTab) ? "active item" : "item"}>Settings</a>
-          <a className={(this.state.active === tinderTab) ? "active item" : "item"}>Events</a>
-          <a className="item" onClick={this.handleLogout}>Log Out</a>
-        </div>
+        <h4 className="ui dividing header" id="dividing-header">Search Events</h4>
         {tabContent}
       </div>
     );
@@ -317,3 +313,27 @@ var MultipleDropdown = React.createClass({
 });
 
 ReactDOM.render(<LandingPage />, document.querySelector("#react-start"));
+
+var Navbar = React.createClass({
+  handleLogout: function() {
+    logout();
+    window.location = '/logout';
+  },
+  render: function() {
+    return (
+      <div className="ui secondary menu">
+        <div className="item">
+          <img src="/img/logo.png"></img>
+        </div>
+        <a className="item" href="/"><i className="home icon" />Home</a>
+        <a className="active item" href="/landing"><i className="search icon"/>Search Events</a>
+        <a className="item" href="/saved-events"><i className="marker icon" />Saved Events</a>
+        <div className="right menu">
+          <a className="ui item" onClick={this.handleLogout}><i className="sign in icon"/>Logout</a>
+        </div>
+      </div>
+    )
+  }
+})
+
+ReactDOM.render(<Navbar />, document.querySelector("#navbar"));

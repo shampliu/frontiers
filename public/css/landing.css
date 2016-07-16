@@ -1,4 +1,19 @@
 /** CSS for Landing Page **/
+body {
+  background: #E6EBE0;
+}
+
+#react-start {
+  margin-top: 80px;
+  padding: 40px 20px;
+  width: 30%;
+  background: #ED6A5A !important;
+}
+
+#dividing-header {
+  font-size: 1.6em;
+  margin-bottom: 40px !important;
+}
 
 #autocomplete {
   width: 300px;
@@ -24,7 +39,8 @@
 }
 
 .ui.button.unsatisfiedForm {
-  background-color: #ffa77f;
+  background-color: #F4F1BB;
+  color: #000000 !important;
 }
 
 .ui.button.satisfiedForm {
