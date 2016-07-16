@@ -10,6 +10,10 @@ body{
   height:100%; /* force the BODY element to match the height of the HTML element */
 }
 
+.login-eventbrite {
+	background: #ED6A5A !important;
+}
+
 .bg {
 	position: absolute;
 	z-index: 1;
@@ -48,7 +52,7 @@ body{
 	padding: 20px;
 	top: 200px !important;
 
-	background-color: #F44336;
+	background-color: #E6EBE0 !important;
 }
 
 .inner a {

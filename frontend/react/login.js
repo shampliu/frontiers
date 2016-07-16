@@ -25,7 +25,7 @@ export class Login extends React.Component {
             </div>
           </div>
           <div className="extra content">
-            <button className="ui button blue login-eventbrite" onClick={this.handleLogin}>Login with Eventbrite</button>
+            <button className="ui button login-eventbrite" onClick={this.handleLogin}>Login with Eventbrite</button>
           </div>
         </div>
 
