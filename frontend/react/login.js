@@ -14,6 +14,15 @@ export class Login extends React.Component {
     );
   }
 
+  componentWillMount() {
+    let email = localStorage.getItem('email');
+    let access_token = localStorage.getItem('access_token');
+
+    if (email !== '' && access_token !== '') {
+      window.location = '/';
+    }
+  }
+
   handleLogin() {
     window.location = eventbrite_login_uri;
   }
