@@ -13,7 +13,7 @@ var cardsData = [
         image: 'dolores-park.jpg',
         id: '1',
         location: 'portland',
-        startTime: '2016-09-06T09:00:00',
+        startTime: '2016-09-06T10:00:00',
         url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
@@ -22,7 +22,7 @@ var cardsData = [
         image: 'coachella.jpg',
         id: '2',
         location: 'Near Los Angeles',
-        startTime: '2016-09-06T09:00:00',
+        startTime: '2016-09-06T17:00:00',
         url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
@@ -31,7 +31,7 @@ var cardsData = [
         image: '',
         id: '3',
         location: 'portland',
-        startTime: '2016-09-06T09:00:00',
+        startTime: '2016-09-06T12:00:00',
         url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
@@ -40,7 +40,7 @@ var cardsData = [
         image: 'dolores-park.jpg',
         id: '4',
         location: 'portland',
-        startTime: '2016-09-06T09:00:00',
+        startTime: '2016-09-06T17:00:00',
         url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     }
 ];
@@ -105,7 +105,31 @@ var Card = React.createClass({displayName: "Card",
                   ));
     this.title = this.props.title.length > 24 ? this.props.title.substring(0, 22) + "..." : this.props.title;
     var startTime = new Date(this.props.startTime);
-    startTime = startTime.toDateString() + " " + this.props.startTime.substring(12);
+    startTime = startTime.toDateString() + " ";
+    console.log(this.props.startTime[11])
+    if (this.props.startTime[11] === "0") {
+      startTime += this.props.startTime.substring(12) + " AM";
+      console.log(1);
+    }
+    else if ((this.props.startTime[11] === "1" && this.props.startTime[12] === "0") ||
+            (this.props.startTime[11] === "1" && this.props.startTime[12] === "1")) {
+      startTime += this.props.startTime.substring(11) + " AM";
+      console.log(2);
+    }
+    else {
+      if (this.props.startTime.substring(11, 13) === "12") {
+        startTime += this.props.startTime.substring(11) + " PM";
+      console.log(3);
+
+      }
+      else {
+        var hour = Number(this.props.startTime.substring(11, 13)) - 12;
+        startTime += hour.toString() + this.props.startTime.substring(13) + " PM";
+      console.log(this.props.startTime.substring(13));
+
+      }
+    }
+    this.props.startTime.substring(12);
     return (
       React.createElement("div", {style:style, className: classes},
         React.createElement("h1", {className: "title"}, this.title),
