@@ -11,7 +11,6 @@ export class LandingPage extends React.Component {
         <div className="jumbotron">
           <h1>Jumbotron</h1>
           <p>This is a cool hero unit, a cool jumbotron-style component for calling extra attention to featured content or information.</p>
-          <p><a class="btn btn-primary btn-lg">Learn more</a></p>
         </div>
       </div>
     );
