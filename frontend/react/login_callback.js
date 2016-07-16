@@ -1,5 +1,6 @@
 // from './utils/functions' import get
-var React     = require('react');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 export class LoginCallback extends React.Component {
   render() {
@@ -24,3 +25,5 @@ export class LoginCallback extends React.Component {
     window.location = '/';
   }
 }
+
+ReactDOM.render(<LoginCallback/>, document.querySelector("#react-start"));
