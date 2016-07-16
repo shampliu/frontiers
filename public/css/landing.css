@@ -7,7 +7,7 @@ body {
   margin-top: 80px;
   padding: 40px 20px;
   width: 30%;
-  background: #ED6A5A !important;
+  background: #fd5c63 !important;
 }
 
 #dividing-header {
@@ -19,6 +19,13 @@ body {
   width: 300px;
 }
 
+.middle-section {
+  margin-left: auto!important;
+  margin-right: auto!important;
+  background-color: #E6EBE0;
+  border-bottom: 2px solid grey;
+}
+
 .ui.button.formButton {
   width: 300px;
   height: 36px;
@@ -27,7 +34,7 @@ body {
 
 .multipleDropdown {
   width: 300px;
-  margin: 15px auto; 
+  margin: 15px auto;
 }
 
 .satisfied {

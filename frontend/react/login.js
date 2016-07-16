@@ -9,7 +9,7 @@ export class Login extends React.Component {
     return (
       <div>
         <div className="bg"></div>
-        <div className="ui card inner">
+        <div className="background-card ui card inner">
           <div className="content">
             <div className="header"><h2 className="open-title">Frontiers</h2></div>
           </div>
@@ -22,17 +22,10 @@ export class Login extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="event">
-                <div className="content">
-                  <div className="summary">
-                     <a>Explore new frontiers</a>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div className="extra content">
-            <button className="ui button blue login-eventbrite" onClick={this.handleLogin}>Login with Eventbrite</button>
+            <button className="ui button login-eventbrite" onClick={this.handleLogin}>Login with Eventbrite</button>
           </div>
         </div>
 
