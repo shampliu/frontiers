@@ -64,9 +64,11 @@ module.exports = function(app) {
 	app.get('/', function(req, res, next) {
 		if (req.session.user) {
 			res.sendFile(path.resolve('frontend/landing.html'));
+			next();
 		}
 	  else {
 	  	res.sendFile(path.resolve('frontend/login.html'));
+	  	next();
 	  }
 
 	});
@@ -135,6 +137,11 @@ module.exports = function(app) {
 		}
 	});
 
+	app.get('/logout', function(req, res) {
+		delete req.session.user;
+		res.sendFile(path.resolve('frontend/login.html'));
+	});
+
 
 	app.get('/tinder', function(req, res) {
 	  res.sendFile(path.resolve('frontend/tinder.html'));
@@ -144,16 +151,8 @@ module.exports = function(app) {
 	  res.sendFile(path.resolve('frontend/landing.html'));
 	});
 
-	app.get('/login', function(req, res) {
-	  res.sendFile(path.resolve('frontend/login.html'));
-	});
-
 	app.get('/login_callback', function(req, res) {
 	  res.sendFile(path.resolve('frontend/login_callback.html'));
-	});
-
-	app.get('/landing', function(req, res) {
-	  res.sendFile(path.resolve('frontend/landing.html'));
 	});
 
 	app.get('/saved-events', function(req, res) {
