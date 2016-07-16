@@ -103,6 +103,10 @@ module.exports = function(app) {
 
 	app.get('/login_callback', function(req, res) {
 	  res.sendFile(path.resolve('frontend/login_callback.html'));
+	});
+
+	app.get('/landing', function(req, res) {
+	  res.sendFile(path.resolve('frontend/landing.html'));
 	})
 
 }
