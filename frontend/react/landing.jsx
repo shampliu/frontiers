@@ -102,16 +102,48 @@ var LandingPage = React.createClass({
   convertEvent: function(event) {
     var card = {};
     console.log(event);
-    card["title"] = event.name.text;
-    card["text"] = event.description.text;
-    if (event.logo != null) {
+    if (event.name && event.name.text) {
+      card["title"] = event.name.text;
+    }
+    else {
+      card["title"] = "Untitled";
+    }
+    if (event.description && event.description.text) {
+      card["text"] = event.description.text;
+    }
+    if (event.logo && event.logo.url) {
       card["image"] = event.logo.url;
     }
-    card["id"] = event.id;
-    card["location"] = event.start.timezone;
-    card["startTime"] = moment(event.start.local, 'YYYY-MM-DD[T]hh:mm:ss').fromNow();
-    card["url"] = event.url;
-    console.log(card);
+    else {
+      card["image"] = "http://placehold.it/300x300";
+    }
+    if (event.id) {
+      card["id"] = event.id;
+    }
+    else {
+      card["id"] = "123";
+    }
+    if (event.start && event.start.timezone) {
+      card["location"] = event.start.timezone;
+    }
+    else {
+      card["location"] = "San Francisco";
+    }
+    // if (event.start && event.start.local) {
+    //   // card["startTime"] = moment(event.start.local, 'YYYY-MM-DD[T]hh:mm:ss').fromNow();
+    //   card["startTime"] = "Soon";
+    // }
+    // else {
+    //   card["startTime"] = "Soon";
+    // }
+    card["startTime"] = "Coming Up";
+    if (event.url) {
+      card["url"] = event.url;
+    }
+    else {
+      card["url"] = "http://yahoo.com"
+    }
+    return card;
   },
   handleSubmit: function() {
     if (this.formSatisfied()) {
