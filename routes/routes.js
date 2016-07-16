@@ -4,6 +4,7 @@ var mongoose = require('mongoose').createConnection(env.db);
 var session   = require('express-session');
 var passport  = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
+var path = require('path');
 
 // passport setup
 
@@ -85,8 +86,20 @@ module.exports = function(app) {
 	);
 
 	app.get('/tinder', function(req, res) {
-	  var path = require('path');
 	  res.sendFile(path.resolve('frontend/tinder.html'));
 	});
+
+	app.get('/login', function(req, res) {
+	  res.sendFile(path.resolve('frontend/login.html'));
+	});
+
+	app.get('/login_callback', function(req, res) {
+		var token = req.query.access_token;
+		// store token under email
+		// https://www.eventbriteapi.com/v3/users/me/?token=SESXYS4X3FJ5LHZRWGKQ
+		// get primary email
+		// db[email_addr]........you konw what to do
+	  res.sendFile(path.resolve('frontend/login.html'));
+	})
 
 }
