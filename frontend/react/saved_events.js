@@ -101,8 +101,8 @@ var Navbar = React.createClass({
     return (
       <div className="ui secondary menu">
         <a className="item" href="/">Home</a>
-        <a className="active item" href="/landing">Search Events</a>
-        <a className="item" href="/saved-events">Saved Events</a>
+        <a className="item" href="/landing">Search Events</a>
+        <a className="active item" href="/saved-events">Saved Events</a>
         <div className="right menu">
           <a className="ui item" onClick={this.handleLogout}>Logout</a>
         </div>
