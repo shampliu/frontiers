@@ -14,16 +14,20 @@
     "express": "~4.13.4",
     "express-session": "~1.0.0",
     "grunt": "^1.0.1",
+    "grunt-webpack": "^1.0.11",
     "hammerjs": "^2.0.4",
+    "jsx-loader": "^0.13.2",
+    "merge": "^1.2.0",
     "mongoose": "4.4",
     "morgan": "~1.7.0",
     "passport": "~0.1.17",
     "passport-facebook": "^2.0.0",
     "passport-local": "~0.1.6",
-    "serve-favicon": "~2.3.0",
-    "merge": "^1.2.0",
-    "react": "^0.14.6",
+    "react": "^0.14.8",
     "react-addons": "^0.9.1-deprecated",
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "serve-favicon": "~2.3.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }

@@ -18,7 +18,7 @@ module.exports = function(app) {
 	  done(null, obj);
 	});
 
-	var url; 
+	var url;
 	if (process.env.NODE_ENV === 'development') {
 		url = "http://localhost:3000/auth/facebook/callback";
 	}
@@ -36,7 +36,7 @@ module.exports = function(app) {
 	  	console.log(profile);
 	  	// User.findOne({ 'fb.id': profile.id }, function (err, user) {
 	  	// 	if (err) {
-	  	// 		return next(err); 	
+	  	// 		return next(err);
 	  	// 	}
 	  	// 	else {
 	  	// 		if (! user) {
@@ -44,7 +44,7 @@ module.exports = function(app) {
 	  	// 				fb : profile,
 	  	// 				accessToken : accessToken
 	  	// 			});
-	  				
+
 	  	// 			newUser.save(function(err) {
 	  	// 				if (err) {
 	  	// 					console.log('ERROR SAVING NEW USER');
@@ -54,7 +54,7 @@ module.exports = function(app) {
 	  	// 		}
 	  	// 	}
 	  	// })
-		
+
 			process.nextTick(function (){
 				return done(null, profile);
 			});
@@ -79,11 +79,14 @@ module.exports = function(app) {
 	);
 
 	app.get('/auth/facebook/callback',
-	  passport.authenticate('facebook', { failureRedirect: '/login'}), function(req, res) { 
+	  passport.authenticate('facebook', { failureRedirect: '/login'}), function(req, res) {
 		res.redirect('/index');
 	 }
 	);
 
-
+	app.get('/tinder', function(req, res) {
+	  var path = require('path');
+	  res.sendFile(path.resolve('frontend/tinder.html'));
+	});
 
 }

@@ -3,7 +3,7 @@
 //
 // Usage: 'grunt' command will compile and minify all *.js
 //   and *.jsx files in ./react and put these in ./public/build
-// 
+//
 // 'grunt watch' can be used for development, this will wait
 //    and automatically recompile any changed files
 
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
   var directory = 'react';
 
   // vendors will be compiled to a file which can be shared between pages
-  var entry = {vendors: ['react', 'react-bootstrap']};
+  var entry = {vendors: []};
 
   // go through files in this directory and add them to target entry
   var files = grunt.file.expand({cwd: directory}, '*.js', '*.jsx');
