@@ -93,8 +93,8 @@ li {
 }
 
 .alert {
-    width: 45%;
-    height: 10%;
+    width: 100%;
+    height: 14%;
     position: absolute;
     top: 0;
     z-index: 9999;
@@ -102,7 +102,7 @@ li {
     transition: opacity .5s;
     color: white;
     vertical-align: middle;
-    line-height: 3rem;
+    line-height: 4rem;
 }
 
 .alert-visible {
@@ -111,14 +111,10 @@ li {
 
 .alert-right {
     right: 0;
-    background: green;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    background: #8BC34A;
 }
 
 .alert-left {
     left: 0;
-    background: red;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
+    background: #F44336;
 }
