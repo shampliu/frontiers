@@ -97,6 +97,10 @@ module.exports = function(app) {
 	  res.sendFile(path.resolve('frontend/tinder.html'));
 	});
 
+	app.get('/landing', function(req, res) {
+	  res.sendFile(path.resolve('frontend/landing.html'));
+	});
+
 	app.get('/login', function(req, res) {
 	  res.sendFile(path.resolve('frontend/login.html'));
 	});
