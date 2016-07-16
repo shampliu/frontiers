@@ -10,7 +10,7 @@ var cardsData = [
     {
         title: 'A wonderful day',
         text: '—— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— -',
-        image: 'portrait-1.jpg',
+        image: 'dolores-park.jpg',
         id: '1',
         location: 'portland'
     },
