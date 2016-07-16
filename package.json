@@ -37,7 +37,6 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "start": "node app.js",
-    "postinstall": "bower install && grunt build"
-  }
+    "start": "node app.js"
+    }
 }
