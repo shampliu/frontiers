@@ -246,7 +246,7 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
     var translate = ''.concat(
       'translate3d(',
         this.state.x + 'px,',
-        this.state.y + 'px,',
+        '0px,',
         '0px)'
     );
 
@@ -377,7 +377,7 @@ var Tinderable = React.createClass({displayName: "Tinderable",
         <div className={classesAlertRight}>
           Save
         </div>
-        <div id="cards">
+        <div id="ui link cards">
           {cards}
         </div>
       </div>
