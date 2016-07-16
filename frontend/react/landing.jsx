@@ -58,11 +58,6 @@ var LandingPage = React.createClass({
   render: function() {
     return (
       <div className="container">
-        <div className="ui three item menu">
-          <a className="active item">Settings</a>
-          <a className="item">Events</a>
-          <a className="item" onClick={this.handleLogout}>Log Out</a>
-        </div>
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
         <CurrentLocationButton enterGeo={this.enterLocationGeo} satisfied={this.state.locationSat} />
         <MultipleDropdown options={this.state.categories} />
@@ -247,3 +242,27 @@ var MultipleDropdown = React.createClass({
 });
 
 ReactDOM.render(<LandingPage />, document.querySelector("#react-start"));
+
+var Navbar = React.createClass({
+  handleLogout: function() {
+    logout();
+    window.location = '/logout';
+  },
+  render: function() {
+    return (
+      <div className="ui secondary menu">
+        <div class="item">
+          <img src="/img/logo.png"></img>
+        </div>
+        <a className="item" href="/">Home</a>
+        <a className="active item" href="/landing">Search Events</a>
+        <a className="item" href="/saved-events">Saved Events</a>
+        <div className="right menu">
+          <a className="ui item" onClick={this.handleLogout}>Logout</a>
+        </div>
+      </div>
+    )
+  }
+})
+
+ReactDOM.render(<Navbar />, document.querySelector("#navbar"));

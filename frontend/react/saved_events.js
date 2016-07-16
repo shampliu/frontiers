@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 var getEvent = require('./utils/events').getEvent;
+var logout = require('./utils/auth').logout;
 
 export class SavedEvents extends React.Component {
 
@@ -47,3 +48,24 @@ export class SavedEvents extends React.Component {
 }
 
 ReactDOM.render(<SavedEvents/>, document.querySelector("#react-start"));
+
+var Navbar = React.createClass({
+  handleLogout: function() {
+    logout();
+    window.location = '/logout';
+  },
+  render: function() {
+    return (
+      <div className="ui secondary menu">
+        <a className="item" href="/">Home</a>
+        <a className="active item" href="/landing">Search Events</a>
+        <a className="item" href="/saved-events">Saved Events</a>
+        <div className="right menu">
+          <a className="ui item" onClick={this.handleLogout}>Logout</a>
+        </div>
+      </div>
+    )
+  }
+})
+
+ReactDOM.render(<Navbar />, document.querySelector("#navbar"));
