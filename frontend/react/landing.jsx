@@ -147,16 +147,16 @@ var LandingPage = React.createClass({
   },
   handleSubmit: function() {
     if (this.formSatisfied()) {
-      var categoriesFilter = events.genCategoryFilter(this.state.categories)
+      // var categoriesFilter = events.genCategoryFilter(this.state.categories)
       var radiusFilter = this.state.radius + "mi";
-      var filters = {radius: radiusFilter, categories: categoriesFilter};
+      var filters = {radius: radiusFilter, categories: this.state.categories};
       var activateTab = this.activateTinder;
       var convert = this.convertEvent;
-      events.getEvents(this.state.lat, this.state.lng, filters, function() {
-        // console.log("submitted");
-        let events = JSON.parse(this.responseText).events;
-        console.log('events is ')
-        console.log(events)
+      events.getEvents(this.state.lat, this.state.lng, filters, function(event) {
+        // console.log("event");
+        let events = event.events;
+        // console.log('events is ')
+        // console.log(event)
         var cards = [];
         for (var e = 0; e < 25; e++) {
           console.log(convert(events[e]))
