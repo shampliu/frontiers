@@ -1,0 +1,54 @@
+* {
+	box-sizing: border-box;
+}
+
+html{
+  min-height:100%;/* make sure it is at least as tall as the viewport */
+  position:relative;
+}
+body{
+  height:100%; /* force the BODY element to match the height of the HTML element */
+}
+
+.bg {
+	margin: 20px;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	background: url(https://images.unsplash.com/photo-1437326516294-01d0da392e11?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=5fd871029d3b4011e04f09d533fea68e);
+	background-size: cover;
+}
+
+.inner {
+
+	font-family: 'Lato', sans-serif;
+	z-index: 2;
+	margin: 0 auto !important;
+	display: block;
+	text-align: center;
+	width: 300px;
+	height: 200px;
+	padding: 20px;
+	top: 200px !important;
+	
+	background-color: whitesmoke;
+
+
+
+
+}
+
+.inner a {
+	color: black; 
+	text-decoration: none;
+}
+
+
+
+.inner h2 {
+	margin-top: 20px;
+}
