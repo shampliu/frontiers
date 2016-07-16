@@ -73,22 +73,43 @@ function getFilterQuery(filters) {
  */
 export function getEvents(latitude, longitude, filters, load_callback) {
   let token = 'AJBA7T2DE2ZVMXHCVE4R';//localStorage.get('access_token');
+  // $.ajaxSetup({cache: false});
   let http = new XMLHttpRequest();
   let route = 'https://www.eventbriteapi.com/v3/events/search';
-  let query = 'token=' + token + '&location.latitude=' + latitude + '&location.longitude=' + longitude;
+  let query = 'token=' + token + '&location.latitude=' + latitude + 6 + '&location.longitude=' + longitude;
   let filterQ = getFilterQuery(filters);
-  if (filterQ !== '') {
-    alert(filterQ);
-    query = query + '&' + filterQ;
-  }
+  console.log("filterq:", filterQ);
+  console.log("query:", query);
+  // if (filterQ !== '') {
+  //   alert(filterQ);
+  //   query = query + '&' + filterQ;
+  // }
   route = route + '/?' + query;
-
-  http.open('GET', route, true);
-  http.setRequestHeader('Accept', 'application/json');
-  http.setRequestHeader('Content-Type', 'application/json');
-
-  http.addEventListener("load", load_callback);
-  http.send();
+  console.log('route', route);
+  // http.addEventListener("load", load_callback, false);
+  // http.open('GET', route, true);
+  // http.setRequestHeader('Accept', 'application/json');
+  // http.setRequestHeader('Content-Type', 'application/json');
+  // http.send();
+  $.ajax({
+    url: route,
+    headers: { 
+        "Accept" : "application/json",
+        "Content-Type": "text/plain; charset=utf-8"
+    },
+    // cache: false,
+    crossDomain: true,
+    dataType: "json",
+    error: function(data) {
+      // var json = $.parseJSON(data);
+       // console.log("failed", data);
+      load_callback(data);
+    },
+    success : function(data, status) {
+        // console.log("success", data);
+        load_callback(data);
+    }
+});
 };
 
 export function getEvent(id, load_callback) {
