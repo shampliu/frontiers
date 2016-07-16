@@ -15,7 +15,7 @@ module.exports = function(grunt) {
   var directory = 'frontend/react';
 
   // vendors will be compiled to a file which can be shared between pages
-  var entry = {vendors: []};
+  var entry = {vendors: ['react', 'react-dom']};
 
   // go through files in this directory and add them to target entry
   var files = grunt.file.expand({cwd: directory}, '*.js', '*.jsx');
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
   // We need to uglify that code on deploy
   var uglifyPlugin = [new webpack.optimize.UglifyJsPlugin()];
   // The module options takes loaders, in this case transforming JSX to normal javascript
-  var module = { loaders: [{ test: /\.js[x]?$/, loader: 'jsx' }, { test: /\.less$/, loader: 'style!css!less' }] };
+  var module = { loaders: [{ test: /\.js[x]?$/, loader: 'babel-loader' }, { test: /\.less$/, loader: 'style!css!less' }] };
 
   grunt.initConfig({
     webpack: {

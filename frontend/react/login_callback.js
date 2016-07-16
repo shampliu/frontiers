@@ -1,4 +1,5 @@
-from './utils/functions' import get
+// from './utils/functions' import get
+var React     = require('react');
 
 export class LoginCallback extends React.Component {
   render() {
@@ -14,9 +15,9 @@ export class LoginCallback extends React.Component {
     var hash = window.location.hash;
     var token = '';
     if (hash !== "") {
-      try {
-        token = hash.substr(hash.indexOf('access_token=')+'access_token='.length);
-      } catch {}
+      // try {
+      //   token = hash.substr(hash.indexOf('access_token=')+'access_token='.length);
+      // } catch {}
     }
     localStorage.setItem('access_token', token);
     // get primary email from eventbrite, store that too

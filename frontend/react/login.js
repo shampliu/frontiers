@@ -1,5 +1,5 @@
-import React from 'react';
-import { EVENTBRITE_OAUTH_URI } from '../config';
+var React = require('react');
+// import { EVENTBRITE_OAUTH_URI } from '../config';
 // https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=YOUR_CLIENT_KEY
 
 export class Login extends React.Component {
@@ -13,6 +13,6 @@ export class Login extends React.Component {
   }
 
   handleLogin() {
-    window.location = EVENTBRITE_OAUTH_URI;
+    // window.location = EVENTBRITE_OAUTH_URI;
   }
 }
