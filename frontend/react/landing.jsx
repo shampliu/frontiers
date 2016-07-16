@@ -3,7 +3,8 @@
 
 
 var React     = require('react'),
-    ReactDOM  = require('react-dom');
+    ReactDOM  = require('react-dom'),
+    events    = require('./utils/events');
 
 
 var radiuses = [{title: "1 mile", value: 1},
@@ -11,6 +12,14 @@ var radiuses = [{title: "1 mile", value: 1},
                 {title: "5 miles", value: 5},
                 {title: "10 miles", value: 10},
                 {title: "25 miles", value: 25}];
+
+// componentDidMount() {
+//   let req = events.getEventsRequest('37.424041', '-122.070304', {});
+//   req.addEventListener("load", function () {
+//     alert(this.responseText);
+//   });
+//   req.send();
+// }
 
 var LandingPage = React.createClass({
   getInitialState: function() {
@@ -34,6 +43,12 @@ var LandingPage = React.createClass({
   },
   formSatisfied: function() {
     return this.state.searchSat || this.state.locationSat;
+  },
+  componentDidMount: function() {
+    console.log("sending off");
+    events.getCategories(function() {
+      console.log(this.responseText);
+    });
   },
   render: function() {
     return (
@@ -183,5 +198,9 @@ var SubmitButton = React.createClass({
     );
   }
 });
+
+// var MultipleDropdown = React.createClass({
+  
+// });
 
 ReactDOM.render(<LandingPage />, document.querySelector("#react-start"));
