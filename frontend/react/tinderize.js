@@ -107,30 +107,22 @@ var Card = React.createClass({
     this.title = this.props.title.length > 24 ? this.props.title.substring(0, 22) + "..." : this.props.title;
     var startTime = new Date(this.props.startTime);
     startTime = startTime.toDateString() + " ";
-    console.log(this.props.startTime[11])
     if (this.props.startTime[11] === "0") {
       startTime += this.props.startTime.substring(12) + " AM";
-      console.log(1);
     }
     else if ((this.props.startTime[11] === "1" && this.props.startTime[12] === "0") ||
             (this.props.startTime[11] === "1" && this.props.startTime[12] === "1")) {
       startTime += this.props.startTime.substring(11) + " AM";
-      console.log(2);
     }
     else {
       if (this.props.startTime.substring(11, 13) === "12") {
         startTime += this.props.startTime.substring(11) + " PM";
-      console.log(3);
-
       }
       else {
         var hour = Number(this.props.startTime.substring(11, 13)) - 12;
         startTime += hour.toString() + this.props.startTime.substring(13) + " PM";
-      console.log(this.props.startTime.substring(13));
-
       }
     }
-    this.props.startTime.substring(12);
     return (
       React.createElement("div", {style:style, className: classes},
         React.createElement("h1", {className: "title"}, this.title),
