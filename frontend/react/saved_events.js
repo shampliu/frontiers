@@ -15,30 +15,31 @@ export class SavedEvents extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h1 className="logo">Your Saved Frontiers</h1>
-        <div className="ui link cards">
-          {this.state.events.map((e) =>
-            <div className="card">
-              <div className="image">
-                <img src={e.logo.url} />
-              </div>
-              <div className="content">
-                <a className="header" dangerouslySetInnerHTML={{__html:e.name.html}} href={e.url}></a>
-                <div className="meta">
-                  <a>Event is <b>{e.status}</b></a>
+      <div className="ui padded row">
+        <div className="column">
+          <div className="ui centered link cards">
+            {this.state.events.map((e) =>
+              <div className="card">
+                <div className="image">
+                  <img src={e.logo.url} />
                 </div>
-                <div className="description">
-                  {e.description.text.substr(0,250)} ...
+                <div className="content">
+                  <a className="header" dangerouslySetInnerHTML={{__html:e.name.html}} href={e.url}></a>
+                  <div className="meta">
+                    <a>Event is <b>{e.status}</b></a>
+                  </div>
+                  <div className="description">
+                    {e.description.text.substr(0,250)} ...
+                  </div>
+                </div>
+                <div className="extra content">
+                  <span>
+                    <b>Starts:</b> {moment(e.start.local,'YYYY-MM-DD[T]hh:mm:ss').fromNow()}
+                  </span>
                 </div>
               </div>
-              <div className="extra content">
-                <span>
-                  <b>Starts:</b> {moment(e.start.local,'YYYY-MM-DD[T]hh:mm:ss').fromNow()}
-                </span>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     );
@@ -100,11 +101,14 @@ var Navbar = React.createClass({
   render: function() {
     return (
       <div className="ui secondary menu">
-        <a className="item" href="/">Home</a>
-        <a className="item" href="/landing">Search Events</a>
-        <a className="active item" href="/saved-events">Saved Events</a>
+        <div className="item">
+          <img src="/img/logo.png"></img>
+        </div>
+        <a className="item" href="/"><i className="home icon" />Home</a>
+        <a className="active item" href="/landing"><i className="search icon"/>Search Events</a>
+        <a className="item" href="/saved-events"><i className="marker icon" />Saved Events</a>
         <div className="right menu">
-          <a className="ui item" onClick={this.handleLogout}>Logout</a>
+          <a className="ui item" onClick={this.handleLogout}><i className="sign in icon"/>Logout</a>
         </div>
       </div>
     )
