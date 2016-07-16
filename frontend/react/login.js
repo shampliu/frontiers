@@ -9,7 +9,7 @@ export class Login extends React.Component {
     return (
       <div>
         <div className="bg"></div>
-        <div className="ui card inner">
+        <div className="background-card ui card inner">
           <div className="content">
             <div className="header"><h2 className="open-title">Frontiers</h2></div>
           </div>
