@@ -12,28 +12,36 @@ var cardsData = [
         text: '—— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— -',
         image: 'dolores-park.jpg',
         id: '1',
-        location: 'portland'
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
         title: 'My amazing journey',
         text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ——— ———— ',
         image: 'coachella.jpg',
         id: '2',
-        location: 'Near Los Angeles'
+        location: 'Near Los Angeles',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
         title: 'Three recipes without cocoa',
         text: ' - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ——— - - - ———',
         image: '',
         id: '3',
-        location: 'portland'
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     },
     {
         title: 'Generiffaftitle',
         text: ' —— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— —— - ——— - - - ——— ———— - — ——— —— - ————— - - ———— - ——— ',
         image: 'dolores-park.jpg',
         id: '4',
-        location: 'portland'
+        location: 'portland',
+        startTime: '2016-09-06T09:00:00',
+        url: "http://www.eventbrite.com/e/tech-in-asia-tokyo-2016-for-international-delegates-tickets-25989587556?aff=ebapi"
     }
 ];
 
@@ -90,19 +98,22 @@ var Card = React.createClass({displayName: "Card",
       zIndex: this.props.index
     };
     var classes = addons.classSet(merge(
-    {
-      card: true
-    },
-    this.props.classes
-    ));
-
+                    {
+                      card: true
+                    },
+                    this.props.classes
+                  ));
+    this.title = this.props.title.length > 24 ? this.props.title.substring(0, 22) + "..." : this.props.title;
+    var startTime = new Date(this.props.startTime);
+    startTime = startTime.toDateString() + " " + this.props.startTime.substring(12);
     return (
       React.createElement("div", {style:style, className: classes},
-        React.createElement("h1", {className: "title"}, this.props.title),
-        React.createElement("h3", {className: "location"}, this.props.location),
+        React.createElement("h1", {className: "title"}, this.title),
+        React.createElement("h3", {className: "location"}, startTime),
         React.createElement("div", {style: innerStyle, className: "inner-image"}),
-        React.createElement("p", null, this.props.text)
-        )
+        React.createElement("h3", {className: "location"}, this.props.location),
+        React.createElement("p", null, this.props.text),
+        React.createElement("a", {href: this.props.url, target: "_blank"}, "More information"))
       );
   }
 });
@@ -283,7 +294,9 @@ var Tinderable = React.createClass({displayName: "Tinderable",
         title: c.title,
         text: c.text,
         image: c.image,
-        location: c.location
+        location: c.location,
+        startTime: c.startTime,
+        url: c.url
       };
 
       var component = (index === (coll.length - 1)) ?

@@ -55,6 +55,7 @@ li {
     -webkit-margin-start: 8px;
     -webkit-margin-end: 0px;
     font-weight: lighter;
+    width: 355px;
 }
 
 .location {
@@ -64,6 +65,7 @@ li {
     -webkit-margin-after: 0.2em;
     -webkit-margin-start: 8px;
     -webkit-margin-end: 0px;
+    width: 355px;
     font-weight: lighter;
 }
 
@@ -72,7 +74,7 @@ li {
     background-color: white;
     background-size: cover;
     min-width: 368px;
-    height: 340px;
+    height: 240px;
     width: 368px;
     background-position: 0 0;
     background-repeat: no-repeat;
