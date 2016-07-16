@@ -295,7 +295,7 @@ var Tinderable = React.createClass({displayName: "Tinderable",
 
   handleSave: function(eventId) {
     let http = new XMLHttpRequest();
-    http.open('GET','/events/save/'+eventId+'',true);
+    http.open('GET','/user/save/'+eventId+'',true);
     http.addEventListener('load', function() {
       console.log('saved!');
     });
