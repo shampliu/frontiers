@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+var getEvent = require('./utils/events').getEvent;
 
 export class SavedEvents extends React.Component {
 
-  getInitialState() {
-    return {
-      'events': {}
+  constructor() {
+    super();
+    this.state = {
+      'events': []
     }
   }
 
@@ -13,11 +15,11 @@ export class SavedEvents extends React.Component {
     return (
       <div className="container">
         <h1 class="logo">Your Frontiers</h1>
+        <p>{JSON.stringify(this.state)}</p>
         <ul>
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-          <li>Item 4</li>
+          {this.state.events.map((e) =>
+            <li>{JSON.stringify(e)}</li>
+          )}
         </ul>
       </div>
     );
@@ -27,8 +29,18 @@ export class SavedEvents extends React.Component {
     let http = new XMLHttpRequest();
     http.open('GET', '/events', true);
     http.withCredentials = true;
+    console.log('before')
+    let _ = this;
     http.addEventListener('load', function() {
-      alert(this.responseText);
+      let ids = JSON.parse(this.responseText);
+      for (var i = 0; i < ids.length; i++) {
+        getEvent(ids[i], function() {
+          let event = JSON.parse(this.responseText);
+          let new_events = _.state.events.slice();
+          new_events.push(event);
+          _.setState({events:new_events})
+        });
+      }
     });
     http.send();
   }
