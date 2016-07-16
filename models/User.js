@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
 	email: String,
-	fb: Object,
-	eb_events: Array,
-	fb_events: Array, 
-	settings: Object
+	fb: {type: Object, default: null},
+	eb_events: {type: Array, default: []},
+	fb_events: {type: Array, default: []}, 
+	settings: {type: Object, default: {}}
 }, { 
 	minimize: false
 });

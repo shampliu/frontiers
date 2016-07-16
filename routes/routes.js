@@ -4,6 +4,7 @@ var mongoose = require('mongoose').createConnection(env.db);
 var session   = require('express-session');
 var passport  = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
+var urlencode = require('urlencode');
 
 // passport setup
 
@@ -34,26 +35,6 @@ module.exports = function(app) {
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	  	console.log(profile);
-	  	// User.findOne({ 'fb.id': profile.id }, function (err, user) {
-	  	// 	if (err) {
-	  	// 		return next(err); 	
-	  	// 	}
-	  	// 	else {
-	  	// 		if (! user) {
-	  	// 			var newUser = new User({
-	  	// 				fb : profile,
-	  	// 				accessToken : accessToken
-	  	// 			});
-	  				
-	  	// 			newUser.save(function(err) {
-	  	// 				if (err) {
-	  	// 					console.log('ERROR SAVING NEW USER');
-	  	// 				}
-	  	// 			})
-
-	  	// 		}
-	  	// 	}
-	  	// })
 		
 			process.nextTick(function (){
 				return done(null, profile);
@@ -79,12 +60,33 @@ module.exports = function(app) {
 		}
 	);
 
-	app.get('/auth/facebook/callback',
+	app.get('/auth/facebook/callback', 
 	  passport.authenticate('facebook', { failureRedirect: '/login'}), function(req, res) { 
 		res.render('index');
 	 }
 	);
 
+	app.post('/users/:email', function(req, res, next) {
+		var email = urlencode.decode(req.params.email);
+		User.findOne({ 'email' : email }, function(err, user) {
+			if (err) {
+				// return next(err);
+			}
+
+			else {
+				if (! user) {
+					var new_user = new User({
+						email: email
+					})
+					new_user.save(function(err) {
+						if (err) {
+							console.log('Could not save new User with email', email); 
+						}
+					})
+				}
+			}
+		})
+	}) 
 
 
 }
