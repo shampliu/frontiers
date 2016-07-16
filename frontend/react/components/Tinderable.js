@@ -107,13 +107,21 @@ var Card = React.createClass({displayName: "Card",
     var startTime = new Date(this.props.startTime);
     startTime = startTime.toDateString() + " " + this.props.startTime.substring(12);
     return (
-      React.createElement("div", {style:style, className: classes},
-        React.createElement("h1", {className: "title"}, this.title),
-        React.createElement("h3", {className: "location"}, startTime),
-        React.createElement("div", {style: innerStyle, className: "inner-image"}),
-        React.createElement("h3", {className: "location"}, this.props.location),
-        React.createElement("p", null, this.props.text),
-        React.createElement("a", {href: this.props.url, target: "_blank"}, "More information"))
+      // React.createElement("div", {style:style, className: classes},
+      //   React.createElement("h1", {className: "title"}, this.title),
+      //   React.createElement("h3", {className: "location"}, startTime),
+      //   React.createElement("div", {style: innerStyle, className: "inner-image"}),
+      //   React.createElement("h3", {className: "location"}, this.props.location),
+      //   React.createElement("p", null, this.props.text),
+      //   React.createElement("a", {href: this.props.url, target: "_blank"}, "More information"))
+      <div className="card">
+        <h1 className="title">{this.title}</h1>
+        <h3 className="location">{startTime}</h3>
+        <div className="inner-image"></div>
+        <h3 className="location">{this.props.location}</h3>
+        <p>{this.props.text}</p>
+        <a href={this.props.url} target="_blank">More Information</a>
+      </div>
       );
   }
 });
@@ -250,16 +258,32 @@ var DraggableCard = React.createClass({displayName: "DraggableCard",
       animate: this.state.animation
     };
 
-    return (React.createElement(Card, React.__spread({},  this.props,
-      {style: style,
-        classes: classes})));
+    console.log("rendering card");
+
+    // return (React.createElement(Card, React.__spread({},  this.props,
+    //   {style: style,
+    //     classes: classes})));
+    return (
+      <div className="draggableCard">
+        <Card 
+          cardId={this.props.cardId}
+          index={this.props.index}
+          onOutScreenLeft={this.props.onOutScreenLeft}
+          onOutScreenRight={this.props.onOutScreenRight}
+          title={this.props.title}
+          text={this.props.text}
+          image={this.props.image}
+          location={this.props.location}
+          startTime={this.props.startTime}
+          url={this.props.url} />
+      </div>
+    );
   }
 });
 
 var Tinderable = React.createClass({displayName: "Tinderable",
   getInitialState: function() {
     return {
-      cards: this.props.initialCardsData,
       alertLeft: false,
       alertRight: false
     };
@@ -275,36 +299,52 @@ var Tinderable = React.createClass({displayName: "Tinderable",
     }.bind(this), 3000);
 
     this.setState({
-      cards: this.state.cards.filter(function(c) {
-        return c.id !== cardId;
-      }),
       alertLeft: side === 'left',
       alertRight: side === 'right'
     });
   },
 
   render: function() {
-    console.log(this.state);
-    var cards = this.state.cards.map(function(c, index, coll) {
-      var props = {
-        cardId: c.id,
-        index: index,
-        onOutScreenLeft: this.removeCard.bind(this, 'left'),
-        onOutScreenRight: this.removeCard.bind(this, 'right'),
-        title: c.title,
-        text: c.text,
-        image: c.image,
-        location: c.location,
-        startTime: c.startTime,
-        url: c.url
-      };
-
-      var component = (index === (coll.length - 1)) ?
-      DraggableCard:
-      Card;
-
-      return React.createElement(component, props);
-    }, this);
+    var leftRemove = this.removeCard.bind(this, 'left');
+    var rightRemove = this.removeCard.bind(this, 'right');
+    var cards = this.props.cardData.map(function(c, index, coll) {
+      console.log("card", index);
+      if (index === (coll.length - 1)) {
+        var theCard =
+          <div key={index}>
+            <DraggableCard
+              cardId={c.id}
+              index={index}
+              onOutScreenLeft={leftRemove}
+              onOutScreenRight={rightRemove}
+              title={c.title}
+              text={c.text}
+              image={c.image}
+              location={c.location}
+              startTime={c.startTime}
+              url={c.url}
+              />
+          </div>
+      }
+      else {
+        var theCard = 
+          <div key={index}>
+          <Card
+            cardId={c.id}
+            index={index}
+            onOutScreenLeft={leftRemove}
+            onOutScreenRight={rightRemove}
+            title={c.title}
+            text={c.text}
+            image={c.image}
+            location={c.location}
+            startTime={c.startTime}
+            url={c.url}
+            />
+          </div>
+      }
+      return theCard;
+    });
 
     var classesAlertLeft = addons.classSet({
       'alert-visible': this.state.alertLeft,
@@ -318,14 +358,25 @@ var Tinderable = React.createClass({displayName: "Tinderable",
     });
 
     return (
-      React.createElement("div", null,
-        React.createElement("div", {className: classesAlertLeft}, "Pass"),
-        React.createElement("div", {className: classesAlertRight}, "Save"),
-        React.createElement("div", {id: "cards"},
-          cards
-          )
-        )
-      );
+      // React.createElement("div", null,
+      //   React.createElement("div", {className: classesAlertLeft}, "Pass"),
+      //   React.createElement("div", {className: classesAlertRight}, "Save"),
+      //   React.createElement("div", {id: "cards"},
+      //     {cards}
+      //     )
+      //   )
+      <div className="tinderable">
+        <div className={classesAlertLeft}>
+          Pass
+        </div>
+        <div className={classesAlertRight}>
+          Save
+        </div>
+        <div id="cards">
+          {cards}
+        </div>
+      </div>
+    );
   }
 });
 
