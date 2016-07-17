@@ -80,10 +80,10 @@ export function getEvents(latitude, longitude, filters, load_callback) {
   let filterQ = getFilterQuery(filters);
   console.log("filterq:", filterQ);
   console.log("query:", query);
-  // if (filterQ !== '') {
-  //   alert(filterQ);
-  //   query = query + '&' + filterQ;
-  // }
+  if (filterQ !== '') {
+    // alert(filterQ);
+    query = query + '&' + filterQ;
+  }
   route = route + '/?' + query;
   console.log('route', route);
   // http.addEventListener("load", load_callback, false);
