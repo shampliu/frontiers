@@ -75,10 +75,14 @@ var Card = React.createClass({displayName: "Card",
       //   React.createElement("h3", {className: "location"}, this.props.location),
       //   React.createElement("p", null, this.props.text),
       //   React.createElement("a", {href: this.props.url, target: "_blank"}, "More information"))
-      <a href={this.props.url} target="_blank">
+      
         <div className="card">
           <div style={style} className={classes}>
-            <h1 className="title">{this.title}</h1>
+            <h1 className="title">
+              <a href={this.props.url} target="_blank">
+                {this.title}
+              </a>
+            </h1>
             <h3 className="location">{startTime}</h3>
             <div className="inner-image" style={innerStyle}></div>
             <h3 className="location">{this.props.location}</h3>
@@ -86,7 +90,6 @@ var Card = React.createClass({displayName: "Card",
             <a href={this.props.url} target="_blank">More Information</a>
           </div>
         </div>
-      </a>
       );
   }
 });
