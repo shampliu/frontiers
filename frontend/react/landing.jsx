@@ -248,7 +248,7 @@ var LocationFinder = React.createClass({
       <div className="LocationFinder">
         <div className="ui icon input">
           <i className={iconClassName}></i>
-          <input id="autocomplete" placeholder="Search Frontiers" type="text" />
+          <input id="autocomplete" placeholder="Search Location" type="text" />
         </div>
       </div>
     );
