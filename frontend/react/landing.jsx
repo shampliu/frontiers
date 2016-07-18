@@ -216,7 +216,7 @@ var LandingPage = React.createClass({
       var tabContent = 
         <div className="ui segment noSegmentStyling">
           <div className="ui active inverted dimmer noSegmentStyling">
-            <div className="ui text loader">Loading</div>
+            <div className="ui text loader">Asking Around...</div>
           </div>
           <p></p>
         </div>
@@ -421,6 +421,7 @@ var Navbar = React.createClass({
         </div>
         <a className="active item" href="/landing"><i className="search icon"/>Search Events</a>
         <a className="item" href="/saved-events"><i className="marker icon" />Saved Events</a>
+        <a className="item" href="https://github.com/shampliu/frontiers"><i className="code icon" />Contribute</a>
         <div className="right menu">
           <a className="ui item" onClick={this.handleLogout}><i className="sign in icon"/>Logout</a>
         </div>
