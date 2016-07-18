@@ -7,8 +7,7 @@ var logout = require('./utils/auth').logout;
 var React      = require('react'),
     ReactDOM   = require('react-dom'),
     Tinderable = require('./components/Tinderable'),
-    events     = require('./utils/events'),
-    moment     = require('moment');
+    events     = require('./utils/events');
 
 
 var radiuses = [{title: "3 mile", value: 3},
@@ -97,7 +96,6 @@ var LandingPage = React.createClass({
       card["location"] = "San Francisco";
     }
     if (event.start && event.start.local) {
-      // card["startTime"] = moment(event.start.local, 'YYYY-MM-DD[T]hh:mm:ss').fromNow();
       card["startTime"] = event.start.local;
     }
     else {
