@@ -60,6 +60,7 @@ var cardsData = [
 let searchTab = "search";
 let tinderTab = "tinder";
 
+var categoryDict = {};
 var LandingPage = React.createClass({
   getInitialState: function() {
     return {searchSat: false, locationSat: false, possibleCategories: [], categories: [],
@@ -85,12 +86,19 @@ var LandingPage = React.createClass({
     this.enterGeo(geolocation);
   },
   enterRadius: function(radius) {
-    console.log("got radius", radius);
+    // console.log("got radius", radius);
     this.setState({radius: radius});
   },
   enterCategories: function(categories) {
-    console.log("got categories", categories);
-    this.setState({categories: categories});
+    // console.log("got categories", categories);
+    var ids = [];
+    var catStrings = categories.split(",");
+    for (var c = 0; c < catStrings.length; c++) {
+      if (categoryDict[catStrings[c]]) {
+        ids.push(categoryDict[catStrings[c]])
+      }
+    }
+    this.setState({categories: ids});
   },
   formSatisfied: function() {
     return this.state.searchSat || this.state.locationSat;
@@ -176,10 +184,12 @@ var LandingPage = React.createClass({
   },
   readCategories: function(response) {
     var categories = [];
+    categoryDict = {};
     var catDicts = JSON.parse(response)["categories"];
     if (catDicts) {
       for (var c = 0; c < catDicts.length; c++) {
-        categories.push(catDicts[c]["short_name"]);
+        categories.push(catDicts[c]["name"]);
+        categoryDict[catDicts[c]["name"]] = catDicts[c]["id"];
       }
     }
     this.setState({possibleCategories: categories});
@@ -359,6 +369,9 @@ var SubmitButton = React.createClass({
   }
 });
 
+/**
+@prop options: list of items: {title: "", value: int}
+*/
 var MultipleDropdown = React.createClass({
   getInitialState: function() {
     return {"selected": []};

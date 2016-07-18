@@ -14,15 +14,15 @@ function generate_request(method, url, load_callback) {
 
 
 export function genCategoryFilter(categories) {
-  let newList = [];
-  for (var i = 0; i < categories.length; i++) {
-    newList.push(categories[i].id);
-  }
-  return newList.join(',');
+  // let newList = [];
+  // for (var i = 0; i < categories.length; i++) {
+  //   newList.push(categories[i]);
+  // }
+  return categories.join(',');
 }
 
 function getFilter(key, filters, qfield) {
-  if (key in filters)
+  if (filters[key])
     return qfield + '=' + filters[key];
   else return '';
 }
@@ -43,7 +43,8 @@ function validateRadiusFilter(radius) {
 }
 
 function getFilterQuery(filters) {
-  let category = getFilter('category', filters, 'categories');
+  console.log("filterss", filters);
+  let category = getFilter('categories', filters, 'categories');
   let paid = getFilter('paid', filters, 'price');
   let date_after = getFilter('date_after', filters, 'start_date.range_start');
   let date_before = getFilter('date_before', filters, 'start_date.range_end');
@@ -51,14 +52,14 @@ function getFilterQuery(filters) {
   let radius = getFilter('radius', filters, 'location.within');
   let page = getFilter('page', filters, 'page');
 
-  if (validatePaidFilter(paid) &&
-      validateSortByFilter(sort_by) &&
-      validateRadiusFilter(radius)) {
+  // if (validatePaidFilter(paid) &&
+  //     validateSortByFilter(sort_by) &&
+  //     validateRadiusFilter(radius)) {
     return [category, paid, date_after, date_before, sort_by, radius, page]
             .filter(function(x) { return x !== '' }).join('&');
-  } else {
-    return '';
-  }
+  // } else {
+  //   return '';
+  // }
 }
 
 /*
@@ -81,7 +82,6 @@ export function getEvents(latitude, longitude, filters, load_callback) {
   console.log("filterq:", filterQ);
   console.log("query:", query);
   if (filterQ !== '') {
-    // alert(filterQ);
     query = query + '&' + filterQ;
   }
   route = route + '/?' + query;
