@@ -136,14 +136,13 @@ var LandingPage = React.createClass({
     else {
       card["location"] = "San Francisco";
     }
-    // if (event.start && event.start.local) {
-    //   // card["startTime"] = moment(event.start.local, 'YYYY-MM-DD[T]hh:mm:ss').fromNow();
-    //   card["startTime"] = "Soon";
-    // }
-    // else {
-    //   card["startTime"] = "Soon";
-    // }
-    card["startTime"] = event.end.local;
+    if (event.start && event.start.local) {
+      // card["startTime"] = moment(event.start.local, 'YYYY-MM-DD[T]hh:mm:ss').fromNow();
+      card["startTime"] = event.start.local;
+    }
+    else {
+      card["startTime"] = "Soon";
+    }
     if (event.url) {
       card["url"] = event.url;
     }
@@ -165,7 +164,7 @@ var LandingPage = React.createClass({
         // if (success) {
           let events = data.events;
           var cards = [];
-          for (var e = 0; e < 25; e++) {
+          for (var e = 0; e < events.length; e++) {
             cards.push(convert(events[e]));
           }
           activateTab(cards);
