@@ -16,22 +16,25 @@ export class SavedEvents extends React.Component {
   render() {
     var imgSrc = (e.logo && e.logo.url) ? e.logo.url : "http://placehold.it/300x300";
     var startDate = (e.start && e.start.local) ? moment(e.start.local,'YYYY-MM-DD[T]hh:mm:ss').fromNow() : "Soon";
+    var description = (e.description && e.description.text) ? e.description.text.substr(0,250) : "";
+    var name = (e.name && e.name.text) ? e.name.text : "Untitled";
+    var status = (e.status) ? e.status : "";
     return (
       <div className="ui padded row">
         <div className="column">
           <div className="ui centered link cards">
             {this.state.events.map((e) =>
-              <div className="card">
+              <div className="card" key={e.id}>
                 <div className="image">
                   <img src={imgSrc} />
                 </div>
                 <div className="content">
-                  <a className="header" dangerouslySetInnerHTML={{__html:e.name.html}} href={e.url}></a>
+                  <a className="header" href={e.url}>{name}</a>
                   <div className="meta">
                     <a>Event is <b>{e.status}</b></a>
                   </div>
                   <div className="description">
-                    {e.description.text.substr(0,250)} ...
+                    {description} ...
                   </div>
                 </div>
                 <div className="extra content">
