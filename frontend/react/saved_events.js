@@ -104,7 +104,6 @@ var Navbar = React.createClass({
         <div className="item">
           <img src="/img/logo.png"></img>
         </div>
-        <a className="item" href="/"><i className="home icon" />Home</a>
         <a className="item" href="/landing"><i className="search icon"/>Search Events</a>
         <a className="item active" href="/saved-events"><i className="marker icon" />Saved Events</a>
         <div className="right menu">

@@ -1,7 +1,7 @@
 /** CSS for Landing Page **/
 body {
   background-color: #E6EBE0;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .background-image {
@@ -15,19 +15,22 @@ body {
 
 #react-start {
   margin-top: 60px;
-  padding: 40px 20px;
-  width: 30%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 40px 0px;
+  width: 396px !important;
   background: #fd5c63 !important;
-  height: 60%;
+  /*height: 60%;*/
 }
 
 #dividing-header {
   font-size: 1.6em;
-  margin-bottom: 40px !important;
+  margin-bottom: 20px !important;
 }
 
-#autocomplete {
-  width: 300px;
+#autocomplete, .ui.input {
+  width: 100%;
+  max-width: 368px;
 }
 
 .middle-section {
@@ -38,13 +41,15 @@ body {
 }
 
 .ui.button.formButton {
-  width: 300px;
+  width: 100%;
   height: 36px;
-  margin: 15px 15px 5px 15px;
+  max-width: 368px;
+  margin: 15px 0px 5px 0px;
 }
 
 .multipleDropdown {
-  width: 300px;
+  width: 100%;
+  max-width: 368px;
   margin: 15px auto;
 }
 

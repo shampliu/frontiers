@@ -103,11 +103,11 @@ export function getEvents(latitude, longitude, filters, load_callback) {
     error: function(data) {
       // var json = $.parseJSON(data);
        // console.log("failed", data);
-      load_callback(data);
+      load_callback(false, data);
     },
     success : function(data, status) {
         // console.log("success", data);
-        load_callback(data);
+        load_callback(true, data);
     }
 });
 };

@@ -76,7 +76,7 @@ var Card = React.createClass({displayName: "Card",
       //   React.createElement("p", null, this.props.text),
       //   React.createElement("a", {href: this.props.url, target: "_blank"}, "More information"))
       
-        <div className="card">
+        <div>
           <div style={style} className={classes}>
             <h1 className="title">
               <a href={this.props.url} target="_blank">
@@ -275,7 +275,7 @@ var Tinderable = React.createClass({displayName: "Tinderable",
       } else if (side === 'right') {
         this.setState({alertRight: false});
       }
-    }.bind(this), 3000);
+    }.bind(this), 1000);
 
     if (side === 'right') {
       this.handleSave(cardId);

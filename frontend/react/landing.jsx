@@ -64,7 +64,7 @@ var LandingPage = React.createClass({
   getInitialState: function() {
     return {searchSat: false, locationSat: false, possibleCategories: [], categories: [],
       radius: 3, active: searchTab, cards: [],
-      lat: 0, lng: 0};
+      lat: 0, lng: 0, loading: false};
   },
   enterGeo: function(geolocation) {
     if (geolocation.lat) {
@@ -96,8 +96,7 @@ var LandingPage = React.createClass({
     return this.state.searchSat || this.state.locationSat;
   },
   activateTinder: function(cards) {
-    console.log("activating");
-    this.setState({active: tinderTab, cards: cards});
+    this.setState({active: tinderTab, cards: cards, loading: false});
   },
   convertEvent: function(event) {
     var card = {};
@@ -147,23 +146,22 @@ var LandingPage = React.createClass({
   },
   handleSubmit: function() {
     if (this.formSatisfied()) {
+      this.setState({loading: true});
       // var categoriesFilter = events.genCategoryFilter(this.state.categories)
       var radiusFilter = this.state.radius + "mi";
       var filters = {radius: radiusFilter, categories: this.state.categories};
       var activateTab = this.activateTinder;
       var convert = this.convertEvent;
-      events.getEvents(this.state.lat, this.state.lng, filters, function(event) {
-        // console.log("event");
-        let events = event.events;
-        // console.log('events is ')
-        // console.log(event)
-        var cards = [];
-        for (var e = 0; e < 25; e++) {
-          console.log(convert(events[e]))
-          cards.push(convert(events[e]));
-        }
-        console.log(cards);
-        activateTab(cards);
+      events.getEvents(this.state.lat, this.state.lng, filters, function(success, data) {
+        // this.setState({loading: false});
+        // if (success) {
+          let events = data.events;
+          var cards = [];
+          for (var e = 0; e < 25; e++) {
+            cards.push(convert(events[e]));
+          }
+          activateTab(cards);
+        // }
       });
     }
   },
@@ -194,7 +192,7 @@ var LandingPage = React.createClass({
     });
   },
   render: function() {
-    if (this.state.active === searchTab) {
+    if (this.state.active === searchTab && !this.state.loading) {
       var tabContent =
       <div>
         <LocationFinder enterGeo={this.enterSearchGeo} satisfied={this.state.searchSat} />
@@ -203,6 +201,15 @@ var LandingPage = React.createClass({
         <InlineDropdown title="Show me events within " options={radiuses} defaultItem={radiuses[1]} onSubmit={this.enterRadius} />
         <SubmitButton satisfied={this.formSatisfied()} onSubmit={this.handleSubmit} />
       </div>;
+    }
+    else if (this.state.loading) {
+      var tabContent = 
+        <div className="ui segment noSegmentStyling">
+          <div className="ui active inverted dimmer noSegmentStyling">
+            <div className="ui text loader">Loading</div>
+          </div>
+          <p></p>
+        </div>
     }
     else if (this.state.active === tinderTab) {
       var tabContent = <div id="tinder-start">
@@ -399,7 +406,6 @@ var Navbar = React.createClass({
         <div className="item">
           <img src="/img/logo.png"></img>
         </div>
-        <a className="item" href="/"><i className="home icon" />Home</a>
         <a className="active item" href="/landing"><i className="search icon"/>Search Events</a>
         <a className="item" href="/saved-events"><i className="marker icon" />Saved Events</a>
         <div className="right menu">
