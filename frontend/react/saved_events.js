@@ -14,6 +14,8 @@ export class SavedEvents extends React.Component {
   }
 
   render() {
+    var imgSrc = (e.logo && e.logo.url) ? e.logo.url : "http://placehold.it/300x300";
+    var startDate = (e.start && e.start.local) ? moment(e.start.local,'YYYY-MM-DD[T]hh:mm:ss').fromNow() : "Soon";
     return (
       <div className="ui padded row">
         <div className="column">
@@ -21,7 +23,7 @@ export class SavedEvents extends React.Component {
             {this.state.events.map((e) =>
               <div className="card">
                 <div className="image">
-                  <img src={e.logo.url} />
+                  <img src={imgSrc} />
                 </div>
                 <div className="content">
                   <a className="header" dangerouslySetInnerHTML={{__html:e.name.html}} href={e.url}></a>
@@ -34,7 +36,7 @@ export class SavedEvents extends React.Component {
                 </div>
                 <div className="extra content">
                   <span>
-                    <b>Starts:</b> {moment(e.start.local,'YYYY-MM-DD[T]hh:mm:ss').fromNow()}
+                    <b>{startDate}</b>
                   </span>
                 </div>
               </div>
