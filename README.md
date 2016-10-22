@@ -1,8 +1,13 @@
 # Frontiers
 
-Discover events around you.
+Discover events around you, everywhere.
 
-## Development Information
+<img src="http://i.imgur.com/lZacpTG.png" width="600">
+
+<img src="http://i.imgur.com/5bBddgl.png" width="600">
+
+
+## Developer Information
 
 Note that the other services, when run locally, expect the frontend to be served on port 3000.
 
